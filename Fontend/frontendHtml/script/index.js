@@ -10,14 +10,67 @@ var images = [
     // Add more image URLs as needed
   ];
 
-  var categories=["Wedding","Babies & Kids","Special Occasion","Commercial","Events","Fashion","Nature","Travel"]
-
   var index = 0;
   var sliderImage = document.querySelector(".slider-image");
   var category = document.getElementById("category");
 
   setInterval(function() {
     sliderImage.style.backgroundImage = "url('" + images[index] + "')";
-    category.textContent = categories[index];
     index = (index + 1) % images.length;
-  }, 5000);
+  }, 3000);
+
+
+  var categories = ["Wedding", "Babies", "Anniversary", "Commercial", "Events", "Fashion", "Nature", "Travel"];
+  var currentIndex = 0;
+  var categoryElement = $('#category');
+  var forwards = true;
+  var offset = 0;
+  var speed = 110;
+  var skip_count = 0;
+  var skip_delay = 15;
+  
+  function wordFlick() {
+    var currentCategory = categories[currentIndex];
+    var part;
+  
+    if (forwards) {
+      if (offset >= currentCategory.length) {
+        ++skip_count;
+        if (skip_count === skip_delay) {
+          forwards = false;
+          skip_count = 0;
+        }
+      }
+    } else {
+      if (offset === 0) {
+        forwards = true;
+        currentIndex = (currentIndex + 1) % categories.length;
+      }
+    }
+  
+    part = currentCategory.substr(0, offset);
+    if (skip_count === 0) {
+      if (forwards) {
+        offset++;
+      } else {
+        offset--;
+      }
+    }
+  
+    categoryElement.text(part);
+  
+    if (offset === currentCategory.length && !forwards) {
+      setTimeout(function() {
+        wordFlick();
+      }, 0); // Wait for 3 seconds before starting the next word flick
+    } else {
+      setTimeout(function() {
+        wordFlick();
+      }, speed);
+    }
+  }
+  
+  $(document).ready(function() {
+    wordFlick(); // Start the word flick effect
+  });
+  
