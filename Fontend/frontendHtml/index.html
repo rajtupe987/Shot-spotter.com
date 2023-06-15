@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles/index.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <title>ShotSpotter:Home</title>
 </head>
 <body>
@@ -28,10 +29,10 @@
   <section id="slider">
     <div class="slider-image">
       <div class="slider-text">
-        <h1 style="font-size:50px">SHOTSPOTTER</h1>
+        <h1 style="font-size:4rem">SHOTSPOTTER</h1>
         <h3>Book <span id="category">Wedding</span> PhotoShoot Today</h3>
         <div>
-          <select name="" id="Category">
+          <select name="Category" id="category_select">
             <option value="">Category</option>
             <option value="">Wedding</option>
             <option value="">Babies & Kids</option>
@@ -42,8 +43,8 @@
             <option value="">Nature</option>
             <option value="">Travel</option>
           </select>
-          <input type="text" placeholder="Search City">
-          <button>Search</button>
+          <input type="text" id="search_city" placeholder="Search City">
+          <button id="search_city_btn">Search</button>
         </div>
         
       </div>
@@ -52,4 +53,6 @@
 </body>
 </html>
 <script src="script/index.js"></script>
+
+
 
