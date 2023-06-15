@@ -1,0 +1,186 @@
+/* Basic styling */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 0.5rem 1rem;
+  }
+  
+  .logo {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.5;
+  }
+
+  .logo img {
+    height: 35px;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .nav-links {
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav-links li:last-child {
+    background-color:rgb(18,180,125);
+    color: #fff;
+    border-radius:0.25rem;
+  }
+  .nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    margin: 0 0.75rem;
+    display: block;
+  }
+
+  .nav-links li button  {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 0.75rem;
+    display: block;
+    height: 30px;
+    border:none;
+  }
+  
+  .nav-links li a:hover {
+    background-color: #555;
+  }
+  
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 18px;
+    width: 25px;
+    cursor: pointer;
+  }
+  
+  .bar {
+    height: 3px;
+    width: 100%;
+    background-color: #fff;
+  }
+
+
+  .slider-image {
+    position: relative;
+    background-image: url("https://d3btuubl2bvm9d.cloudfront.net/images/2c9f8d6952b600c30152c4a9bff60025/1552548481006-web.jpg");
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; 
+  }
+
+  .slider-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  .slider-text {
+    text-align: center;
+    position: absolute;
+    top: 37%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
+
+  .slider-text h3{
+    font-size: 1.5rem;
+    position: absolute;
+    top: 55%;
+  }
+  .slider-text div{
+    width: 150%;
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    left: -30%;
+    /* border: 2px solid red; */
+    margin: auto;
+  }
+
+  #category {
+    margin: auto;
+    color: rgb(18,180,125);;
+    font: 700 normal 1.5em 'tahoma';
+    text-shadow: 3px 1px #222324, 2px 4px #222324, 3px 5px #222324;
+  }
+  
+  #category_select, #search_city, #search_city_btn{
+    height: 2.5rem;
+    padding: 0 .75rem;
+    margin: 1.5rem;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+  }
+  #search_city{
+    width: 21rem;
+    outline: none;
+  }
+  #category_select{
+    border :none;
+    border-radius: 0.25rem;
+  }
+  #search_city_btn{
+    background:black;
+    color: white;
+    border: none;
+    padding: 0 1.75rem;
+  }
+
+  #search_city_btn:hover{
+    background:rgb(45, 45, 45);
+    color:  rgb(18,180,125);
+  }
+  /* Responsive styling */
+  @media (max-width: 1024px) {
+    .nav-links {
+      display: none;
+    }
+  
+    .hamburger {
+      display: flex;
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .nav-links li a {
+      padding: 0.5rem 0.75rem;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .nav-links a {
+      padding: 0.5rem 0.5rem;
+    }
+    .slider-text>div{
+      display: flex;
+      flex-direction: column;
+    }
+    #search_city{
+      width: 100%;
+    }
+  }
+  

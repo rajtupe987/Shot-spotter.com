@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/index.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <title>ShotSpotter:Home</title>
+</head>
+<body>
+  <!-- Navigation bar -->
+  <nav class="navbar">
+    <a href="#" class="logo"><img src="images/logo.jpg" alt="Example Image" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Explore</a></li>
+      <li><a href="#">Sign In</a></li>
+      <li><a href="#">Register As Studio</a></li>
+    </ul>
+    <div class="hamburger">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+  </nav>
+ 
+  <!-- slider section -->
+  <section id="slider">
+    <div class="slider-image">
+      <div class="slider-text">
+        <h1 style="font-size:4rem">SHOTSPOTTER</h1>
+        <h3>Book <span id="category">Wedding</span> PhotoShoot Today</h3>
+        <div>
+          <select name="Category" id="category_select">
+            <option value="">Category</option>
+            <option value="">Wedding</option>
+            <option value="">Babies & Kids</option>
+            <option value="">Special Occasion</option>
+            <option value="">Commercial</option>
+            <option value="">Corporate Events</option>
+            <option value="">Fashion & Portfolio</option>
+            <option value="">Nature</option>
+            <option value="">Travel</option>
+          </select>
+          <input type="text" id="search_city" placeholder="Search City">
+          <button id="search_city_btn">Search</button>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+</body>
+</html>
+<script src="script/index.js"></script>
+
+
+
