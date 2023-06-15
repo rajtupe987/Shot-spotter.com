@@ -1,11 +1,10 @@
 {
-  "name": "cli",
+  "name": "sequelize",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server":"nodemon app.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
@@ -14,8 +13,6 @@
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "mysql2": "^3.3.5",
-    "nodemon": "^2.0.22",
-    "sequelize": "^6.32.0",
-    "sequelize-cli": "^6.6.1"
+    "sequelize": "^6.32.0"
   }
 }
