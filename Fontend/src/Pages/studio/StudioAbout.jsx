@@ -1,0 +1,1 @@
+// Individual product page with about component 
