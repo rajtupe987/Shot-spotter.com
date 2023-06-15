@@ -77,6 +77,15 @@ userRoute.post("/user/login", async (req, res) => {
 
 
 //logout part//
+userRoute.post("/user/logout", async (req, res) => {
+  const token = req.headers.authorization;
+  const blackListData = JSON.parse(
+    fs.readFileSync("blacklist.token.json", "utf-8")
+  );
+  blackListData.push(token);
+  fs.writeFileSync("blacklist.token.json", JSON.stringify(blackListData));
+  res.send("logout successful");
+});
 //reset part//
 //oauth part//
 //email verification//
