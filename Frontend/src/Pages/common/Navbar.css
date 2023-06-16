@@ -1,0 +1,28 @@
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 10px 20px;
+}
+
+.navbar__left img {
+    width: 100px;
+    height: auto;
+}
+
+.navbar__right {
+    display: flex;
+    align-items: center;
+}
+
+.navbar__right a {
+    margin-right: 10px;
+    color: #333;
+    text-decoration: none;
+}
+
+.navbar__right span {
+    margin-right: 10px;
+    color: #333;
+}

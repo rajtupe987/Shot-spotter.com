@@ -1,0 +1,49 @@
+#slider {
+    position: relative;
+}
+
+.slider-image {
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.slider-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #fff;
+}
+
+.slider-text h1 {
+    font-size: 4rem;
+    margin-bottom: 20px;
+}
+
+.slider-text h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+#category {
+    font-weight: bold;
+}
+
+#category_select,
+#search_city {
+    width: 200px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+#search_city_btn {
+    height: 30px;
+    padding: 0 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}

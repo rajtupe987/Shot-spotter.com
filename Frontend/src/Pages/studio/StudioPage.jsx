@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import Navbar from './Navbar';
+import { useNavigate, Link } from 'react-router-dom';
+import Navbar from '../common/Navbar';
 
 const StudioPage = () => {
   const [categories, setCategories] = useState([]);
