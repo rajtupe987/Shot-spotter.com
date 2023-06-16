@@ -1,62 +1,3 @@
-// module.exports = (sequelize, DataTypes) => {
-//     const Photographer = sequelize.define("photographers", {
-//       name: {
-//         type: DataTypes.STRING,
-//         allowNull: false
-//       },
-//       category: DataTypes.ARRAY(DataTypes.STRING),
-//       availability: DataTypes.BOOLEAN,
-//       email: DataTypes.STRING,
-//       phone_number: DataTypes.STRING,
-//       location: {
-//         type: DataTypes.ARRAY(DataTypes.STRING),
-//         allowNull: false,
-//         defaultValue: []
-//       },
-//       bio: DataTypes.TEXT
-//     });
-  
-//     return Photographer;
-//   };
-  
-// module.exports = (sequelize, DataTypes) => {
-//   const Photographer = sequelize.define("photographers", {
-//     name: {
-//       type: DataTypes.STRING,
-//       allowNull: false
-//     },
-//     category: {
-//       type: DataTypes.TEXT,
-//       allowNull: true,
-//       get: function() {
-//         const rawValue = this.getDataValue("category");
-//         return rawValue ? JSON.parse(rawValue) : null;
-//       },
-//       set: function(value) {
-//         this.setDataValue("category", JSON.stringify(value));
-//       }
-//     },
-//     availability: DataTypes.BOOLEAN,
-//     email: DataTypes.STRING,
-//     phone_number: DataTypes.STRING,
-//     location: {
-//       type: DataTypes.TEXT,
-//       allowNull: false,
-//       defaultValue: "[]",
-//       get: function() {
-//         const rawValue = this.getDataValue("location");
-//         return JSON.parse(rawValue);
-//       },
-//       set: function(value) {
-//         this.setDataValue("location", JSON.stringify(value));
-//       }
-//     },
-//     price:DataTypes.NUMBER,
-//     bio: DataTypes.TEXT
-//   });
-
-//   return Photographer;
-//};
 
 module.exports = (sequelize, DataTypes) => {
   const Photographer = sequelize.define("photographers", {
@@ -65,45 +6,73 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     category: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      get() {
-        try {
-          const rawValue = this.getDataValue("category");
-          return rawValue ? JSON.parse(rawValue) : null;
-        } catch (error) {
-          console.error("Error parsing category JSON:", error);
-          return null;
-        }
-      },
-      set(value) {
-        this.setDataValue("category", JSON.stringify(value));
-      }
+      type: DataTypes.JSON,
+      allowNull: false,
+      defaultValue: []
+    },
+    location: {
+      type: DataTypes.JSON,
+      allowNull: false,
+      defaultValue: []
     },
     availability: DataTypes.BOOLEAN,
     email: DataTypes.STRING,
     phone_number: DataTypes.STRING,
-    location: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-      defaultValue: "[]",
-      get() {
-        try {
-          const rawValue = this.getDataValue("location");
-          return JSON.parse(rawValue);
-        } catch (error) {
-          console.error("Error parsing location JSON:", error);
-          return [];
-        }
-      },
-      set(value) {
-        this.setDataValue("location", JSON.stringify(value));
-      }
-    },
-    price: DataTypes.NUMBER,
+    price: DataTypes.FLOAT,
     bio: DataTypes.TEXT
   });
 
   return Photographer;
 };
 
+
+// module.exports = (sequelize, DataTypes) => {
+//   const Customer = sequelize.define("customers", {
+//     name: {
+//       type: DataTypes.STRING,
+//       allowNull: false
+//     },
+//     email: {
+//       type: DataTypes.STRING,
+//       allowNull: false
+//     },
+//     phone_number: {
+//       type: DataTypes.STRING
+//     }
+//   });
+//   return Customer;
+// };
+
+
+
+// module.exports = (sequelize, DataTypes) => {
+//   const Booking = sequelize.define("bookings", {
+//     booking_id: {
+//       type: DataTypes.INTEGER,
+//       primaryKey: true,
+//       autoIncrement: true
+//     },
+//     customer_id: {
+//       type: DataTypes.INTEGER,
+//       allowNull: false
+//     },
+//     photographer_id: {
+//       type: DataTypes.INTEGER,
+//       allowNull: false
+//     },
+//     date: {
+//       type: DataTypes.DATEONLY,
+//       allowNull: false
+//     },
+//     start_time: {
+//       type: DataTypes.TIME,
+//       allowNull: false
+//     },
+//     end_time: {
+//       type: DataTypes.TIME,
+//       allowNull: false
+//     }
+//   });
+
+//   return Booking;
+// };
