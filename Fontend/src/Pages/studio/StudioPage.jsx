@@ -1,1 +1,0 @@
-// Product page to render all photographers
