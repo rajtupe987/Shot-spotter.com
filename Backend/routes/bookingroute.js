@@ -1,8 +1,10 @@
 const express = require('express');
 const bookingRouter = express.Router();
 const Booking = require('../models/booking.model');
-// const userModel=require("../models/usermodel")
+// const userModel=require("../models/usermodel");
 
+const role=require("../middleware/authorozation")
+const {authenticate}=require("../middleware/authenticate")
 // Get all bookings
 bookingRouter.get('/', async (req, res) => {
   try {
@@ -15,32 +17,27 @@ bookingRouter.get('/', async (req, res) => {
 
 
 // Create a new booking
-bookingRouter.post('/', async (req, res) => {
+bookingRouter.post('/',authenticate,role(["client"]), async (req, res) => {
   try {
-    const {photographerId, customerName, customerContact,client, startTime, endTime } = req.body;
-
-    // Check if photographer and client exist in the database
-    // const photographer = await userModel.findById(photographerId);
-    // if (!photographer){
-    //   return res.status(400).json({ message: 'Invalid photographer or client ID', ok:false });
-    // }
-    // Create a new booking instance
-
+    const {photographerId, customerName, customerContact, startTime, endTime } = req.body;
+    // const client = req.body.client;
+    console.log(req.body)
     //decode logic
     const booking = new Booking({
       customerName,
       customerContact,
-      client:req.user.id,
+      client:req.body.client,
       photographer:photographerId,
       startTime: new Date(startTime),
       endTime:new Date(endTime)
 
     });
 
+    
     // Save the booking to the database
     await booking.save();
 
-    res.status(201).json({ message: 'Booking created successfully' });
+    res.status(201).send({ message: 'Booking created successfully' ,booking});
   } catch (error) {
     console.error('Failed to create booking', error);
     res.status(500).json({ message: 'Failed to create booking' });
@@ -51,7 +48,7 @@ bookingRouter.post('/', async (req, res) => {
 
 
 // Delete a booking by ID
-bookingRouter.delete('/:id', async (req, res) => {
+bookingRouter.delete('/:id',role(["client"]), async (req, res) => {
   try {
     const booking = await Booking.findByIdAndDelete(req.params.id);
     if (!booking) {
@@ -64,8 +61,37 @@ bookingRouter.delete('/:id', async (req, res) => {
 });
 
 
+// Update a booking by ID
+bookingRouter.patch('/:id',role(["client","photographer"]), async (req, res) => {
+  try {
+    const booking = await Booking.findByIdAndUpdate(req.params.id, { status: req.body.status });
+    if (!booking) {
+      return res.status(404).json({ error: 'Booking not found' });
+    }
+    res.sendStatus(204);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Retrieve bookings with the same client
+bookingRouter.get('/client',role(["client"]), authenticate, async (req, res) => {
+  try {
+    const client = req.body.client;
+
+    // Find bookings with the provided client ID
+    const bookings = await Booking.find({ client });
+
+    res.json(bookings);
+  } catch (error) {
+    console.error('Failed to retrieve bookings', error);
+    res.status(500).json({ message: 'Failed to retrieve bookings' });
+  }
+});
 
 
+
+//http://localhost:4002/studio/photographerbookings
 //Retrieve all booking requests for a specific photographer
 // bookingRouter.get('/requests/:status', async (req, res) => {
 //   try {

@@ -1,9 +1,9 @@
 const express = require('express');
 const photographerRouter = express.Router();
 const Photographer = require('../models/photographers');
-
-
-
+const Booking=require("../models/booking.model")
+const {authenticate}=require("../middleware/authenticate")
+const role=require("../middleware/authorozation")
 const checkRole = (role) => {
   return (req, res, next) => {
     if (req.user.role !== role) {
@@ -15,7 +15,7 @@ const checkRole = (role) => {
 
 
 // Get all photographers
-photographerRouter.get('/', async (req, res) => {
+photographerRouter.get('/',role(["client","photographer"]), async (req, res) => {
   try {
     const photographers = await Photographer.find();
     res.json(photographers);
@@ -24,10 +24,23 @@ photographerRouter.get('/', async (req, res) => {
   }
 });
 
+// Retrieve bookings with the same client
+photographerRouter.get('/photographerbookings',role(["photographer"]), authenticate, async (req, res) => {
+  try {
+    const client = req.body.client;
 
+    // Find bookings with the provided client ID
+    const bookings = await Booking.find({ client });
+
+    res.json(bookings);
+  } catch (error) {
+    console.error('Failed to retrieve bookings', error);
+    res.status(500).json({ message: 'Failed to retrieve bookings' });
+  }
+});
 
 // Create a new photographer
-photographerRouter.post('/', async (req, res) => {
+photographerRouter.post('/',role(["photographer"]), async (req, res) => {
   try {
     const photographer = new Photographer(req.body);
     await photographer.save();
@@ -38,7 +51,7 @@ photographerRouter.post('/', async (req, res) => {
 });
 
 // Update a photographer by ID
-photographerRouter.put('/:id', async (req, res) => {
+photographerRouter.put('/:id',role(["photographer"]), async (req, res) => {
   try {
     const photographer = await Photographer.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!photographer) {
@@ -51,7 +64,7 @@ photographerRouter.put('/:id', async (req, res) => {
 });
 
 // Delete a photographer by ID
-photographerRouter.delete('/:id', async (req, res) => {
+photographerRouter.delete('/:id',role(["photographer"]), async (req, res) => {
   try {
     const photographer = await Photographer.findByIdAndDelete(req.params.id);
     if (!photographer) {
@@ -96,18 +109,18 @@ photographerRouter.delete('/:id', async (req, res) => {
 // });
 
 // Get a specific photographer by ID
-photographerRouter.get('getphotographer/:id', async (req, res) => {
-  console.log(req.params.id)
-  try {
-    const photographer = await Photographer.findById(req.params.id);
-    if (!photographer) {
-      return res.status(404).json({ error: 'Photographer not found' });
-    }
-    res.json(photographer);
-  } catch (error) {
-    res.status(500).json({ error: 'Internal server error', message: error.message });
-  }
-});
+// photographerRouter.get('getphotographer/:id', async (req, res) => {
+//   console.log(req.params.id)
+//   try {
+//     const photographer = await Photographer.findById(req.params.id);
+//     if (!photographer) {
+//       return res.status(404).json({ error: 'Photographer not found' });
+//     }
+//     res.json(photographer);
+//   } catch (error) {
+//     res.status(500).json({ error: 'Internal server error', message: error.message });
+//   }
+// });
 
 
 //http://localhost:4004/book/sort/desc
@@ -189,7 +202,7 @@ photographerRouter.get('getphotographer/:id', async (req, res) => {
 //   }
 // });
 
-photographerRouter.get('/filter', async (req, res) => {
+photographerRouter.get('/filter',role(["client"]), async (req, res) => {
   let expertise = req.query.expertise;
   let location = req.query.location;
   const order = req.query.order;
@@ -219,7 +232,10 @@ photographerRouter.get('/filter', async (req, res) => {
       aggregationPipeline.push({ $sort: { price: -1 } });
     }
 
-    aggregationPipeline.push({ $project: { _id: 0 } });
+    // aggregationPipeline.push({ $project: { _id: 0 } });
+
+    // Add limit stage to the pipeline
+    aggregationPipeline.push({ $limit: 15 });
 
     const photographers = await Photographer.aggregate(aggregationPipeline);
 
