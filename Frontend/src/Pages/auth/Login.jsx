@@ -6,32 +6,35 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+      
+        try {
+          const response = await fetch('https://your-api-url/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+          });
 
-    // Perform login request to the backend
-    try {
-      const response = await fetch('https://your-api-url/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
+          if (response.ok) {
+            // Login successful, navigate to studio page
+            alert("LogIn Successful");
+            navigate('/studio');
+          } else {
+            // Login failed, display error message
+            const errorData = await response.json();
+            setErrorMessage(errorData.msg);
+          }
+        } catch (error) {
+          console.log(error);
+          setErrorMessage('An error occurred during login. Please try again.');
+        }
+      
+  }
 
-      if (response.ok) {
-        // Login successful, navigate to studio page
-        navigate('/studio');
-      } else {
-        // Login failed, display error message
-        const errorData = await response.json();
-        setErrorMessage(errorData.message);
-      }
-    } catch (error) {
-      console.log(error);
-      setErrorMessage('An error occurred during login. Please try again.');
-    }
-  };
 
   return (
     <div className="login-container">

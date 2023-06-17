@@ -67,11 +67,9 @@ const Register = () => {
       </p>
       <div className="oauth-buttons">
         <button className="google-button">
-          <i className="fab fa-google"></i> Sign up with Google
-        </button>
+          <img src="https://cdn-icons-png.flaticon.com/128/300/300221.png" /> Sign up with Google</button>
         <button className="github-button">
-          <i className="fab fa-github"></i> Sign up with GitHub
-        </button>
+          <img src="https://cdn-icons-png.flaticon.com/128/179/179323.png" /> Sign up with GitHub</button>
       </div>
     </div>
   );
