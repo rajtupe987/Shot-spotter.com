@@ -22,8 +22,7 @@ app.use("/book", photographerRouter);
 app.use("/bookings", bookingRouter);
 
 app.use(userRoute);
-app.use(authenticate);
-app.use(authRoute)
+
 
 app.listen(port, async () => {
   try {
