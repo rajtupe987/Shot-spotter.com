@@ -10,18 +10,18 @@ const { userModel } = require("../models/usermodel");
 
 // sign up//
 
-userRoute.post("/user/signup", async (req, res) => {
+userRoute.post("/user/register", async (req, res) => {
   const { name, email, role, password } = req.body;
   let userData = await userModel.find({ email });
   if (userData.length > 0) {
     res.status(400);
-    res.send("user already exists");
+    res.send({msg: "user already exists"});
   } else {
     bcrypt.hash(password, +process.env.saltRounds, async function (err, hash) {
       if (err) {
         console.log(err);
         res.status(400);
-        res.send("something went wrong");
+        res.send({msg:"something went wrong"});
       } else {
         let userRegisterData = userModel({
           name,
@@ -30,7 +30,7 @@ userRoute.post("/user/signup", async (req, res) => {
           password: hash,
         });
         await userRegisterData.save();
-        res.send("user registered");
+        res.send({msg:"user registered"});
       }
     });
   }
@@ -76,7 +76,7 @@ userRoute.post("/user/logout", async (req, res) => {
   );
   blackListData.push(token);
   fs.writeFileSync("blacklist.token.json", JSON.stringify(blackListData));
-  res.send("logout successful");
+  res.send({msg:"logout successful"});
 });
 
 //otp generate//
