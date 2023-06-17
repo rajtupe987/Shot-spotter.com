@@ -2,7 +2,7 @@ const express = require("express");
 
 require("dotenv").config();
 
-const port = process.env.port;
+const port = process.env.port||8000;
 const { connection } = require("./config/db");
 const { userRoute } = require("./routes/userroutes");
 const { authenticate } = require("./middleware/authenticate");
@@ -17,8 +17,13 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("welcome to apiace");
 });
+
+//app.use("/auth", authRoute);
+app.use("/studio", photographerRouter);
+
 app.use("/auth", authRoute);
-app.use("/book", photographerRouter);
+
+
 app.use("/bookings", bookingRouter);
 
 app.use(userRoute);

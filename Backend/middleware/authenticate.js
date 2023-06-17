@@ -13,8 +13,9 @@ async function authenticate(req, res, next) {
     } else {
       jwt.verify(token, process.env.secret, function (err, decoded) {
         if (decoded) {
-          req.body.name = decoded.name;
-          req.body.userID = decoded.userID;
+          req.body.customerName = decoded.name;
+         // req.body.userID = decoded.userID;
+          req.body.client = decoded.userID;
           next();
         } else {
           console.log(err);
