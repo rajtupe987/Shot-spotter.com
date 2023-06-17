@@ -6,7 +6,7 @@ const port = process.env.port;
 const { connection } = require("./config/db");
 const { userRoute } = require("./routes/userroutes");
 const { authenticate } = require("./middleware/authenticate");
-//const { authRoute } = require("./routes/auth");
+const { authRoute } = require("./routes/auth");
 
 const photographerRouter=require("./routes/photogrpher.route");
 const bookingRouter=require("./routes/bookingroute")
@@ -17,13 +17,13 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("welcome to apiace");
 });
-//app.use("/auth", authRoute);
+app.use("/auth", authRoute);
 app.use("/book", photographerRouter);
 app.use("/bookings", bookingRouter);
 
 app.use(userRoute);
 app.use(authenticate);
-//app.use(authRoute)
+app.use(authRoute)
 
 app.listen(port, async () => {
   try {
