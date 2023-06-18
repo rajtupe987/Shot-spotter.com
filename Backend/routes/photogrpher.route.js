@@ -55,7 +55,7 @@ photographerRouter.get('/photographerbookings', authenticate,athorization(["phot
 });
 
 // Create a new photographer
-photographerRouter.post('/',athorization(["photographer"]), async (req, res) => {
+photographerRouter.post('/',authenticate,athorization(["photographer"]), async (req, res) => {
   try {
     const photographer = new Photographer(req.body);
     await photographer.save();
@@ -66,7 +66,7 @@ photographerRouter.post('/',athorization(["photographer"]), async (req, res) => 
 });
 
 // Update a photographer by ID
-photographerRouter.put('/:id',athorization(["photographer"]), async (req, res) => {
+photographerRouter.put('/:id',authenticate,athorization(["photographer"]), async (req, res) => {
   try {
     const photographer = await Photographer.findByIdAndUpdate(req.params.id, {status:req.body.status});
     if (!photographer) {
@@ -79,7 +79,7 @@ photographerRouter.put('/:id',athorization(["photographer"]), async (req, res) =
 });
 
 // Delete a photographer by ID
-photographerRouter.delete('/:id',athorization(["photographer"]), async (req, res) => {
+photographerRouter.delete('/:id',authenticate,athorization(["photographer"]), async (req, res) => {
   try {
     const photographer = await Photographer.findByIdAndDelete(req.params.id);
     if (!photographer) {
@@ -217,7 +217,7 @@ photographerRouter.delete('/:id',athorization(["photographer"]), async (req, res
 //   }
 // });
 
-photographerRouter.get('/filter',athorization(["client"]), async (req, res) => {
+photographerRouter.get('/filter',authenticate,athorization(["client"]), async (req, res) => {
   let expertise = req.query.expertise;
   let location = req.query.location;
   const order = req.query.order;
