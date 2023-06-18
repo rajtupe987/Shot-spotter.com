@@ -47,7 +47,7 @@ bookingRouter.post('/',authenticate,athorization(["client"]), async (req, res) =
 
 
 // Delete a booking by ID
-bookingRouter.delete('/:id',athorization(["client"]), async (req, res) => {
+bookingRouter.delete('/:id',authenticate,athorization(["client"]), async (req, res) => {
   try {
     const booking = await Booking.findByIdAndDelete(req.params.id);
     if (!booking) {
@@ -61,7 +61,7 @@ bookingRouter.delete('/:id',athorization(["client"]), async (req, res) => {
 
 
 // Update a booking by ID
-bookingRouter.patch('/:id',athorization(["client","photographer"]), async (req, res) => {
+bookingRouter.patch('/:id',authenticate,athorization(["client","photographer"]), async (req, res) => {
   try {
     const booking = await Booking.findByIdAndUpdate(req.params.id, { status: req.body.status });
     if (!booking) {
@@ -74,7 +74,7 @@ bookingRouter.patch('/:id',athorization(["client","photographer"]), async (req, 
 });
 
 // Retrieve bookings with the same client
-bookingRouter.get('/client', authenticate, async (req, res) => {
+bookingRouter.get('/client',authenticate, authenticate, async (req, res) => {
   try {
     const client = req.body.client;
 

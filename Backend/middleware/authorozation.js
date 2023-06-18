@@ -1,4 +1,4 @@
-s
+
 function athorization(roles) {
     return (req, res, next) => {
       const { role } = req.user;
