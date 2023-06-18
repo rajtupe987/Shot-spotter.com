@@ -3,28 +3,27 @@ const bookingRouter = express.Router();
 const Booking = require('../models/booking.model');
 // const userModel=require("../models/usermodel");
 
-const role=require("../middleware/authorozation")
+const {athorization}=require("../middleware/authorozation")
 const {authenticate}=require("../middleware/authenticate")
 // Get all bookings
-bookingRouter.get('/', async (req, res) => {
-  try {
-    const bookings = await Booking.find();
-    res.json(bookings);
-  } catch (error) {
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
+// bookingRouter.get('/',athorization(["client"]), async (req, res) => {
+//   try {
+//     const bookings = await Booking.find();
+//     res.json(bookings);
+//   } catch (error) {
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// });
 
 
 // Create a new booking
-bookingRouter.post('/',authenticate,role(["client"]), async (req, res) => {
+bookingRouter.post('/',authenticate,athorization(["client"]), async (req, res) => {
   try {
-    const {photographerId, customerName, customerContact, startTime, endTime } = req.body;
+    const {photographerId, customerContact, startTime, endTime } = req.body;
     // const client = req.body.client;
-    console.log(req.body)
+    //console.log(req.body)
     //decode logic
     const booking = new Booking({
-      customerName,
       customerContact,
       client:req.body.client,
       photographer:photographerId,
@@ -32,7 +31,7 @@ bookingRouter.post('/',authenticate,role(["client"]), async (req, res) => {
       endTime:new Date(endTime)
 
     });
-
+ console.log(booking)
     
     // Save the booking to the database
     await booking.save();
@@ -48,7 +47,7 @@ bookingRouter.post('/',authenticate,role(["client"]), async (req, res) => {
 
 
 // Delete a booking by ID
-bookingRouter.delete('/:id',role(["client"]), async (req, res) => {
+bookingRouter.delete('/:id',athorization(["client"]), async (req, res) => {
   try {
     const booking = await Booking.findByIdAndDelete(req.params.id);
     if (!booking) {
@@ -62,7 +61,7 @@ bookingRouter.delete('/:id',role(["client"]), async (req, res) => {
 
 
 // Update a booking by ID
-bookingRouter.patch('/:id',role(["client","photographer"]), async (req, res) => {
+bookingRouter.patch('/:id',athorization(["client","photographer"]), async (req, res) => {
   try {
     const booking = await Booking.findByIdAndUpdate(req.params.id, { status: req.body.status });
     if (!booking) {
@@ -75,7 +74,7 @@ bookingRouter.patch('/:id',role(["client","photographer"]), async (req, res) => 
 });
 
 // Retrieve bookings with the same client
-bookingRouter.get('/client',role(["client"]), authenticate, async (req, res) => {
+bookingRouter.get('/client', authenticate, async (req, res) => {
   try {
     const client = req.body.client;
 
@@ -108,3 +107,11 @@ bookingRouter.get('/client',role(["client"]), authenticate, async (req, res) => 
 
 
 module.exports = bookingRouter;
+
+///http://localhost:4002/bookings == crete new booking
+
+// http://localhost:4002/bookings/:id = delete booking
+
+//http://localhost:4002/bookings/:id = update booking
+
+//http://localhost:4002/bookings/client == all booking of perticular client

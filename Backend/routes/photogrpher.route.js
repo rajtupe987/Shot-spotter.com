@@ -3,29 +3,44 @@ const photographerRouter = express.Router();
 const Photographer = require('../models/photographers');
 const Booking=require("../models/booking.model")
 const {authenticate}=require("../middleware/authenticate")
-const role=require("../middleware/authorozation")
-const checkRole = (role) => {
-  return (req, res, next) => {
-    if (req.user.role !== role) {
-      return res.status(403).json({ error: 'Access denied' });
-    }
-    next();
-  }
-}
+const {athorization}=require("../middleware/authorozation")
 
 
 // Get all photographers
-photographerRouter.get('/',role(["client","photographer"]), async (req, res) => {
+
+
+const {userModel} = require("../models/usermodel");
+photographerRouter.get("/getall",async(res,req)=>{
   try {
-    const photographers = await Photographer.find();
-    res.json(photographers);
+    //const id=req.params.id
+    const data=await userModel.find();
+    console.log(data)
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+photographerRouter.get('/',authenticate,athorization(["client","admin","photographer"]), async (req, res) => {
+  const limit = parseInt(req.query.limit) || 10; // Get the limit of photographers per page from query parameters, default to 10 if not provided
+  const page = parseInt(req.query.page) || 1; // Get the requested page from query parameters, default to page 1 if not provided
+  const skip = (page - 1) * limit; // Calculate the number of documents to skip based on page and limit
+
+  try {
+    const totalPhotographersCount = await Photographer.countDocuments();
+    const totalPages = Math.ceil(totalPhotographersCount / limit);
+
+    const photographers = await Photographer.find()
+      .skip(skip)
+      .limit(limit);
+
+    res.json({photographers});
   } catch (error) {
     res.status(500).json({ error: 'Internal server error', message: error.message });
   }
 });
 
 // Retrieve bookings with the same client
-photographerRouter.get('/photographerbookings',role(["photographer"]), authenticate, async (req, res) => {
+photographerRouter.get('/photographerbookings', authenticate,athorization(["photographer"]), async (req, res) => {
   try {
     const client = req.body.client;
 
@@ -40,7 +55,7 @@ photographerRouter.get('/photographerbookings',role(["photographer"]), authentic
 });
 
 // Create a new photographer
-photographerRouter.post('/',role(["photographer"]), async (req, res) => {
+photographerRouter.post('/',athorization(["photographer"]), async (req, res) => {
   try {
     const photographer = new Photographer(req.body);
     await photographer.save();
@@ -51,9 +66,9 @@ photographerRouter.post('/',role(["photographer"]), async (req, res) => {
 });
 
 // Update a photographer by ID
-photographerRouter.put('/:id',role(["photographer"]), async (req, res) => {
+photographerRouter.put('/:id',athorization(["photographer"]), async (req, res) => {
   try {
-    const photographer = await Photographer.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const photographer = await Photographer.findByIdAndUpdate(req.params.id, {status:req.body.status});
     if (!photographer) {
       return res.status(404).json({ error: 'Photographer not found' });
     }
@@ -64,7 +79,7 @@ photographerRouter.put('/:id',role(["photographer"]), async (req, res) => {
 });
 
 // Delete a photographer by ID
-photographerRouter.delete('/:id',role(["photographer"]), async (req, res) => {
+photographerRouter.delete('/:id',athorization(["photographer"]), async (req, res) => {
   try {
     const photographer = await Photographer.findByIdAndDelete(req.params.id);
     if (!photographer) {
@@ -202,12 +217,15 @@ photographerRouter.delete('/:id',role(["photographer"]), async (req, res) => {
 //   }
 // });
 
-photographerRouter.get('/filter',role(["client"]), async (req, res) => {
+photographerRouter.get('/filter',athorization(["client"]), async (req, res) => {
   let expertise = req.query.expertise;
   let location = req.query.location;
   const order = req.query.order;
   const minPrice = Number(req.query.minPrice);
   const maxPrice = Number(req.query.maxPrice);
+  const page = Number(req.query.page) || 1;
+  const limit = 10;
+  const skip = (page - 1) * limit;
 
   try {
     let aggregationPipeline = [];
@@ -234,8 +252,9 @@ photographerRouter.get('/filter',role(["client"]), async (req, res) => {
 
     // aggregationPipeline.push({ $project: { _id: 0 } });
 
-    // Add limit stage to the pipeline
-    aggregationPipeline.push({ $limit: 15 });
+    // Add skip and limit stages to the pipeline for pagination
+    aggregationPipeline.push({ $skip: skip });
+    aggregationPipeline.push({ $limit: limit });
 
     const photographers = await Photographer.aggregate(aggregationPipeline);
 
@@ -249,30 +268,30 @@ photographerRouter.get('/filter',role(["client"]), async (req, res) => {
 ///////////// Route for searching photographers///////////
 //http://localhost:4004/book/searchdata?search=Outdoor Photography
 //serch by anyhitng name,location,expetise,profile
-photographerRouter.get('/searchdata', async (req, res) => {
-    const searchQuery = req.query.search;
+// photographerRouter.get('/searchdata', async (req, res) => {
+//     const searchQuery = req.query.search;
 
-    try {
-        let query = {};
+//     try {
+//         let query = {};
 
-        if (searchQuery) {
-            query = {
-                $or: [
-                    { location: { $regex: searchQuery, $options: 'i' } },
-                    { expertise: { $regex: searchQuery, $options: 'i' } },
-                    { profile: { $regex: searchQuery, $options: 'i' } },
-                    {name: {$regex : searchQuery,$options:"i"}}
-                ]
-            };
-        }
+//         if (searchQuery) {
+//             query = {
+//                 $or: [
+//                     { location: { $regex: searchQuery, $options: 'i' } },
+//                     { expertise: { $regex: searchQuery, $options: 'i' } },
+//                     { profile: { $regex: searchQuery, $options: 'i' } },
+//                     {name: {$regex : searchQuery,$options:"i"}}
+//                 ]
+//             };
+//         }
 
-        // console.log(searchQuery)
-         const photographers = await Photographer.find(query);
-         res.json(photographers);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
+//         // console.log(searchQuery)
+//          const photographers = await Photographer.find(query);
+//          res.json(photographers);
+//     } catch (err) {
+//         res.status(500).json({ message: err.message });
+//     }
+// });
 
 
 
@@ -280,3 +299,19 @@ photographerRouter.get('/searchdata', async (req, res) => {
 
 
 module.exports = photographerRouter;
+
+
+
+///http://localhost:4002/studio?page=1-getch all data
+
+//http://localhost:4002/studio/photographerbookings all his bookings/order of perticular photgrapher
+
+//http://localhost:4002/studio == create photogrpher 
+
+//http://localhost:4002/studio/:id ==delete 
+
+///http://localhost:4002/studio/:id == update 
+
+///http://localhost:4002/studio/filter?order=asc == you can sort filter sort by range at once..
+
+
