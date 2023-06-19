@@ -2,13 +2,24 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #f0f0f0;
+    background-color: #E0F2E9;
+    color: #fff;
+    height: 40px;
     padding: 10px 20px;
 }
 
+Link {
+    padding: 5px 10px;
+    border: 1px solid red;
+}
+.navbar__left {
+  display: flex;
+  align-items: center;
+}
 .navbar__left img {
-    width: 100px;
-    height: auto;
+    width: auto;
+    height: 30px;
+    background-blend-mode: multiply;
 }
 
 .navbar__right {
@@ -26,3 +37,47 @@ nav {
     margin-right: 10px;
     color: #333;
 }
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 18px;
+    width: 25px;
+    cursor: pointer;
+  }
+  
+  .bar {
+    height: 3px;
+    width: 100%;
+    background-color: #fff;
+  }
+
+
+  
+  
+  /* Responsive styling */
+  @media (max-width: 1024px) {
+    .nav-links {
+      display: none;
+    }
+  
+    .hamburger {
+      display: flex;
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .nav-links li a {
+      padding: 0.5rem 0.75rem;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .nav-links a {
+      padding: 0.5rem 0.5rem;
+    }
+    
+  }
+  
+  

@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
+import logo from '../images/logo.jpg';
 
 const Navbar = ({ loggedIn, username }) => {
     return (
         <nav>
             <div className="navbar__left">
                 <Link to="/">
-                    <img src="" alt="ShotSpotter Logo" />
+                    <img src={logo} alt="ShotSpotter" />
                 </Link>
             </div>
             <div className="navbar__right">

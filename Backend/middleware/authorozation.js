@@ -1,15 +1,16 @@
 
-  const role=(passedRole)=>{
-    return (req,res,next)=>{
-        const userrole=req.role;
+function athorization(roles) {
+    return (req, res, next) => {
+      const { role } = req.user;
+       //console.log(req.user)
+      if (!roles.includes(role)) {
+        return res.status(403).json({ message: "Forbidden" });
+      }
+  
+      next();
+    };
+  }
 
-        if(passedRole.includes(userrole)){
-            next();
-        }else{
-            return res.status(500).send({"msg":"You are Unauthorised"})
-        }
-    }
-};
-
-
-module.exports=role
+  module.exports={
+    athorization
+}
