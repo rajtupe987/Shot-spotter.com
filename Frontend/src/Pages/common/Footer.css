@@ -1,0 +1,45 @@
+.footer{
+    height:auto;
+    padding: 2rem;
+    background-color: rgb(33,37,41);
+    margin-top: 4rem;
+    color: white;
+  }
+  .footer>div{
+    width: 30%;
+  }
+  .footer>div>div{
+    display: flex;
+    justify-content: space-between;
+  }
+  .footer>div>img{
+    width: 90%;
+  }
+  .line{
+    border: 1px solid gray;
+    border-left: none;
+    border-right: none;
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    background-color: rgb(33,37,41);
+    color: white;
+  }
+  .line2{
+    border: 1px solid gray;
+    border-left: none;
+    border-top: none;
+    border-right: none;
+    color: white;
+    background-color: rgb(33,37,41);
+  }
+  footer{
+    background-color: rgb(33,37,41);
+  }
+  .line2 a {
+    color: white; /* Set the desired color here */
+  }
+  
+  .line2 a:hover {
+    color: green; /* Set the desired color for hover state */
+  }

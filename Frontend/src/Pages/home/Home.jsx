@@ -1,6 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../common/Navbar';
+import Footer from '../common/Footer';
 import './Home.css';
+import heartImage from '../images/png/001-heart.png';
+import valueImage from '../images/png/001-value.png';
+import birthdayCakeImage from '../images/png/002-birthday-cake.png';
+import magnifyingGlassImage from '../images/png/002-magnifying-glass.png';
+import babyBoyImage from '../images/png/003-baby-boy.png';
+import creditCardImage from '../images/png/003-credit-card.png';
+import burgerImage from '../images/png/004-burger.png';
+import corporateImage from '../images/png/005-corporate.png';
+import landscapeImage from '../images/png/006-landscape.png';
+import eiffelTowerImage from '../images/png/007-eiffel-tower.png';
+import review1Image from '../images/png/review1.jpg';
+import review2Image from '../images/png/review2.jpg';
+import review3Image from '../images/png/review3.JPG';
+import weddingRingsImage from '../images/png/wedding-rings.png';
+
+
 
 const HomePage = () => {
   useEffect(() => {
@@ -110,7 +127,116 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-      {/* Add the navbar and footer components here */}
+      {/* TYPES SECTION */}
+      <div className="types">
+        <div>
+          <img src={weddingRingsImage} alt="" />
+          <h3>WEDDING</h3>
+        </div>
+        <div>
+          <img src={babyBoyImage} alt="" />
+          <h3>BABIES</h3>
+        </div>
+        <div>
+          <img src={birthdayCakeImage} alt="" />
+          <h3>SPECIAL OCCASIONS</h3>
+        </div>
+        <div>
+          <img src={burgerImage} alt="" />
+          <h3>COMMERCIAL</h3>
+        </div>
+        <div>
+          <img src={corporateImage} alt="" />
+          <h3>CORPORATE EVENTS</h3>
+        </div>
+        <div>
+          <img src={landscapeImage} alt="" />
+          <h3>NATURE</h3>
+        </div>
+        <div>
+          <img src={eiffelTowerImage} alt="" />
+          <h3>TRAVEL</h3>
+        </div>
+      </div>
+      {/* HOW IT WORKS */}
+      <section className="works">
+        <h2>How It Works</h2>
+        <div>
+          <div>
+            <img src={magnifyingGlassImage} alt="" />
+            <h2>Search</h2>
+            <p>Search for your perfect Photographer based on your location, category, and price range.</p>
+          </div>
+          <div>
+            <img src={heartImage} alt="" />
+            <h2>Shortlist</h2>
+            <p>Shortlist Photographers you like based on their albums, packages, and reviews to keep track.</p>
+          </div>
+          <div>
+            <img src={creditCardImage} alt="" />
+            <h2>Book</h2>
+            <p>Book your finalized Photographer by selecting a package or directly contacting them on Whatsapp.</p>
+          </div>
+        </div>
+      </section>
+      {/* wedding section */}
+      <section className="wedding"></section>
+      {/* babies section */}
+      <section className="babies"></section>
+      {/* special occasion section */}
+      <section className="occasion"></section>
+      {/* food section */}
+      <section className="food"></section>
+      {/* review section */}
+      <section className="review">
+        <h3>What people are saying…</h3>
+        <div>
+          <div>
+            <img src={review1Image} alt="" />
+            <h3>Vyankatesh Gadekar</h3>
+            <p>KNOTSBYAMP - WEDDING</p>
+            <p>&#9733; 4.5</p>
+            <p>Very professional team of photographers. Passionate about their work and very accommodating. Made our wedding memorable. Good with the parents and relatives as well.</p>
+          </div>
+          <div>
+            <img src={review2Image} alt="" />
+            <h3>Bandana Maity</h3>
+            <p>PHOTOMATIC - WEDDING</p>
+            <p>&#9733; 4.5</p>
+            <p>Photomatic is a complete solution for wedding photography. This team has got excellent members with huge knowledge. The best part is all the members are calm, decent, and very friendly and highly professional too. All the very best to this lovely team.</p>
+          </div>
+          <div>
+            <img src={review3Image} alt="" />
+            <h3>Supriya Mishra</h3>
+            <p>VIJAY STUDIO - SPECIAL OCCASION</p>
+            <p>&#9733; 4.5</p>
+            <p>Best photography best service with lots of creativity made my wedding memorable. These guys did a great job thank you vijay studio you guys are really awesome</p>
+          </div>
+        </div>
+      </section>
+      <div className="banner">
+        <h1>Are you a Professional Photographer?</h1>
+        <button id="reg_studio">Register as Studio</button>
+      </div>
+      <div className="stats">
+        <div>
+          <h1>981</h1>
+          <p>Total Cities</p>
+        </div>
+        <div>
+          <h1>22,372</h1>
+          <p>Total Studios</p>
+        </div>
+        <div>
+          <h1>39,495</h1>
+          <p>Total Albums</p>
+        </div>
+        <div>
+          <h1>15,980</h1>
+          <p>Total Reviews</p>
+        </div>
+      </div>
+      <Footer />
     </div>
   );
 };
