@@ -22,7 +22,7 @@ const InStudio = () => {
   }, []);
 
   useEffect(() => {
-    const baseServerURL = "https://api.example.com";
+    const baseServerURL = "http://localhost:4002";
     const fetchPhotographerData = async () => {
       try {
         const response = await fetch(`${baseServerURL}/studio/${studioID}`);
@@ -127,7 +127,7 @@ const InStudio = () => {
       </div>
 
       <Routes>
-        <Route path="about" element={<About />} />
+        <Route path="about" element={<About photographer={photographer}/>} />
         <Route path="albums" element={<Albums />} />
         <Route path="packages" element={<Packages />} />
         <Route path="reviews" element={<Reviews />} />

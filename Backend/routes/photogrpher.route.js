@@ -8,7 +8,7 @@ const {athorization}=require("../middleware/authorozation")
 
 // Get all photographers
 
-photographerRouter.get('/',async (req, res) => {
+
 
 
 
@@ -325,5 +325,3 @@ module.exports = photographerRouter;
 ///http://localhost:4002/studio/:id == update 
 
 ///http://localhost:4002/studio/filter?order=asc == you can sort filter sort by range at once..
-
-
