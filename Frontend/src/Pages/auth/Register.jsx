@@ -19,7 +19,7 @@ const Register = () => {
 
     // Perform registration request to the backend
     try {
-      const response = await fetch('https://your-api-url/register', {
+      const response = await fetch('http://localhost:4002/user/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password })

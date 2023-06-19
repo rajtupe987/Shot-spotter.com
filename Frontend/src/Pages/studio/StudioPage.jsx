@@ -15,7 +15,7 @@ const StudioPage = () => {
 
   useEffect(() => {
     // Fetch photographers from the backend API
-    fetch('https://your-api-url/photographers')
+    fetch('http://localhost:4002/studio')
       .then((response) => response.json())
       .then((data) => setPhotographers(data))
       .catch((error) => console.log(error));
