@@ -38,13 +38,13 @@ const Register = () => {
       setErrorMessage('An error occurred during registration. Please try again.');
     }
   };
-  const google = () => {
-    window.location.href = 'https://aware-plum-crayfish.cyclic.app/auth/google/callback';
-  };
+  // const google = () => {
+  //   window.location.href = 'https://aware-plum-crayfish.cyclic.app/auth/google/callback';
+  // };
 
-  const github = () => {
-    window.location.href = 'https://aware-plum-crayfish.cyclic.app/auth/github/callback';
-  };
+  // const github = () => {
+  //   window.location.href = 'https://aware-plum-crayfish.cyclic.app/auth/github/callback';
+  // };
 
   return (
     <div className="register-container">
@@ -78,9 +78,9 @@ const Register = () => {
         Already have an account? <Link to="/login" className="login-link">Login</Link>
       </p>
       <div className="oauth-buttons">
-        <button className="google-button" onClick={google}>
+        <button className="google-button" >
           <img src="https://cdn-icons-png.flaticon.com/128/300/300221.png" /> Sign up with Google</button>
-        <button className="github-button" onClick={github} >
+        <button className="github-button" >
           <img src="https://cdn-icons-png.flaticon.com/128/179/179323.png" /> Sign up with GitHub</button>
       </div>
     </div>
