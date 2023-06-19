@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./admipage.css" />
+</head>
+<body>
+    <div id="nav">
+        <div><a href="./frontendHtml/index.html"><img src="../images/logo.jpg" alt="" id="logo"></a></div>
+       
+        <div id="navbtnDiv">
+            <h4>Admin Panel</h4>
+        </div>
+
+       
+    </div>
+    <div>
+        <div id="after-nav">
+            <div id="after-nav-col-1" >
+                <div class="row">
+                    <a href="./admin.html"><h2>Dashboard</h2></a>
+                </div>
+               
+               <div class="row">
+                <a href="./appointment.html"> <h2>All Appointments</h2></a>   
+                </div>
+                <div class="row">
+                    <a href="./addphotographer.html"><h2>Add photographer</h2></a>    
+                </div>
+                <div class="row">
+                    <a href="./remove.html"> <h2>Remove photographer</h2></a>   
+                </div>
+                
+       
+       
+            </div>
+       
+            <div id="after-nav-col-2" class="side-part appointment all-appoint" >
+                <div id="add-teacher">
+                    <form class="add-form">
+                        <label class="l" for="name">Name:</label>
+                        <input class="in" type="text" id="name" name="name" placeholder="Enter the photographer name" required>
+                      
+                        <label class="l" for="email">Image</label>
+                        <input class="in"  type="email" id="image" name="email" placeholder="Enter the photographer image" required>
+                      
+                        <label class="l" for="subject">Profile</label>
+                        <input  class="in" type="text" id="profile" name="subject" placeholder="Enter the profile here" required>
+                        <label class="l" for="subject">location</label>
+                        <input class="in" type="text" id="location" name="subject" placeholder="Enter the location" required>
+                        <label class="l" for="subject">Expertiese</label>
+                        <input class="in" type="text" id="Expertiese" name="subject" placeholder="Enter the photographer Expertiese" required>
+                        <label class="l" for="subject">availability</label>
+                        <input class="in" type="text" id="availability" name="subject" placeholder="Enter the availability" required>
+                        <label class="l" for="subject">price</label>
+                        <input class="in" type="text" id="price" name="subject" placeholder="Enter the price" required>
+                       
+                      
+                       
+                      
+                        <button id="btn1" type="submit">Add photographer</button>
+                      </form>
+                      
+                </div>
+               
+                  
+              
+               
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./addphotographer.js"></script>
+</body>
+</html>

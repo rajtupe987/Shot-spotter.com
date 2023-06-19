@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./admipage.css" />
+</head>
+<body>
+
+    <div id="nav">
+        <div><a href="../Frontend/frontendHtml/index.html"><img src="../images/logo.jpg" alt="" id="logo"></a></div>
+       
+        <div id="navbtnDiv">
+            <h4>Admin Panel</h4>
+        </div>
+
+       
+    </div>
+    <div>
+        <div id="after-nav">
+            <div id="after-nav-col-1" >
+                <div class="row">
+                    <a><h2>Dashboard</h2></a>
+                </div>
+               
+               <div class="row">
+                <a href="./appointment.html"> <h2>All Appointments</h2></a>   
+                </div>
+                <div class="row">
+                    <a href="./addphotographer.html"><h2>Add Photographer</h2></a>    
+                </div>
+                <div class="row">
+                    <a href="./remove.html"> <h2>Remove photographer</h2></a>   
+                </div>
+                
+       
+       
+            </div>
+       
+            <div id="after-nav-col-2" class="side-part appointment all-appoint" >
+                <div class="chekin" id="select">
+                    <label><h2>Status:</h2></label>
+                    <select id="myselect">
+                        <option value="">Select Status</option>
+                       <option value="pending">Pending</option>
+                       <option value="approved">Approved</option>
+                       <option value="rejected">Rejected</option>
+                    </select>
+               </div>
+               <table id="photographer1">
+               
+                   <thead>
+                       <tr>
+                           <th scope="col">photographer_Id</th>
+                           <th scope="col">name</th>
+                           <th scope="col">location</th>
+                           <th scope="col">availability</th>
+                           <th scop="col">price</th>
+                           
+                         
+                           
+                       </tr>
+                   </thead>
+                   <tbody id="photographer">
+                   </tbody>
+               </table>
+              
+               
+            </div>
+        </div>
+    </div>
+
+    <script src="./appointment.js"></script>
+</body>
+</html>
