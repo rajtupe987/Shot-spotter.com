@@ -57,6 +57,7 @@ userRoute.post("/user/login", async (req, res) => {
           role: userData[0].role,
           email: userData[0].email,
         });
+
       } else {
         res.status(400);
         res.send({ msg: "wrong credentials" });

@@ -27,9 +27,9 @@ app.use(express.json());
 app.use(userRoute);
 app.use("/admin",adminRouter)
 
-app.get("/", (req, res) => {
-  res.send("welcome to apiace");
-});
+// app.get("/", (req, res) => {
+//   res.send("welcome to apiace");
+// });
 
 //app.use("/auth", authRoute);
 app.use("/studio", photographerRouter);
@@ -52,9 +52,9 @@ const razorpayInstance = new Razorpay({
 
 
 
-// app.get('/', (req, res) => {
-//   //res.sendFile(path.join(__dirname, '../Frontend'))
-// })
+app.get('/', (req, res) => {
+  res.redirect('/'); // Redirect to the root route of your React app
+});
 
 app.post('/createOrder', (req, res)=>{
   const {amount, currency, receipt, notes} = req.body;

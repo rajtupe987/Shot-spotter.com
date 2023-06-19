@@ -31,7 +31,7 @@ bookingRouter.post('/',authenticate,athorization(["client"]), async (req, res) =
       endTime:new Date(endTime)
 
     });
- console.log(booking)
+
     
     // Save the booking to the database
     await booking.save();

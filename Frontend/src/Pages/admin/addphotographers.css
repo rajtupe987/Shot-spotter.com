@@ -1,0 +1,79 @@
+/* AddPhotographerForm.css */
+body {
+    background-color:#ccc /* Change the background color of the whole page */
+  }
+  .add-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 400px;
+    margin: 0 auto;
+   
+  }
+  
+  .add-form label {
+    font-weight: bold;
+  }
+  
+  .add-form input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .add-form button {
+    padding: 0.5rem 1rem;
+    background-color: #4285f4;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .add-form button:hover {
+    background-color: #2c64d6;
+  }
+  /* AddPhotographerForm.css */
+  
+  .add-form-container {
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .add-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: #4285f4; /* Change background color to blue */
+    color: #fff; /* Change text color to white */
+    padding: 1rem;
+    border-radius: 4px;
+  }
+  
+  .add-form label {
+    font-weight: bold;
+  }
+  
+  .add-form input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .add-form button {
+    padding: 0.5rem 1rem;
+    background-color: #fff; /* Change button background color to white */
+    color: #4285f4; /* Change button text color to blue */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .add-form button:hover {
+    background-color: #f5f5f5; /* Change button background color on hover */
+    color: #4285f4; /* Change button text color on hover */
+  }
+  

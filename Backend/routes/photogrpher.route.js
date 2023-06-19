@@ -9,20 +9,8 @@ const {athorization}=require("../middleware/authorozation")
 // Get all photographers
 
 
-
-
-
 const {userModel} = require("../models/usermodel");
-photographerRouter.get("/getall",async(res,req)=>{
 
-  try {
-    //const id=req.params.id
-    const data=await userModel.find();
-    console.log(data)
-  } catch (error) {
-    console.log(error)
-  }
-})
 
 photographerRouter.get('/',authenticate,athorization(["client","admin","photographer"]), async (req, res) => {
   const limit = parseInt(req.query.limit) || 10; // Get the limit of photographers per page from query parameters, default to 10 if not provided
