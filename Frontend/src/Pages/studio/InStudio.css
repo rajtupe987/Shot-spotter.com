@@ -1,0 +1,59 @@
+#photographer-info {
+    background-image: url("https://aws.amazon.com/getting-started/hands-on/deliver-content-faster/");
+    background-size: cover;
+    background-position: center;
+}
+
+#loading {
+    position: absolute;
+    left: 47%;
+    top: 47%
+}
+
+.booking-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f2f2;
+    text-align: center;
+  }
+  
+  .booking-form {
+    width: 300px;
+    padding: 20px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .form-input {
+    width: 94%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .book-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .book-button:hover {
+    background-color: #0056b3;
+  }
+  

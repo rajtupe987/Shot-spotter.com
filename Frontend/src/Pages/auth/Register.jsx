@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './Register.css'; // Import the CSS file
 
 const Register = () => {
+
+  useEffect(() => {
+    document.title = 'Signup on ShotSpotter';
+  }, []);
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
