@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./admipage.css" />
+</head>
+<body>
+    <div id="nav">
+        <div><a href="../Frontend/frontendHtml/index.html"><img src="../images/logo.jpg" alt="" id="logo"></a></div>
+       
+        <div id="navbtnDiv">
+            <h4>Admin Panel</h4>
+        </div>
+
+       
+    </div>
+
+    <div>
+        <div id="after-nav">
+            <div id="after-nav-col-1" >
+                <div class="row">
+                    <a href=""><h2>Dashboard</h2></a>
+                </div>
+               
+               <div class="row">
+                <a href="./appointment.html"> <h2>All Appointments</h2></a>   
+                </div>
+                <div class="row">
+                    <a href="./addphotographer.html"><h2>Add photographer</h2></a>    
+                </div>
+                <div class="row">
+                    <a href="./remove.html"> <h2>Remove photographer</h2></a>   
+                </div>
+                
+       
+       
+            </div>
+       
+            <div id="after-nav-col-2" class="side-part appointment all-appoint" >
+                <div id="search">
+                    <!-- <label id="srch"><h1>Search photographer:</h1></label> -->
+                    <!-- <input id="searchp" oninput="searchphotographer()" class="searchphotographer" placeholder="search photographer" > -->
+                   
+                </div>
+               <table id="teachers">
+                   <thead>
+                       <tr>
+                           <th scope="col">photographer Id</th>
+                           <th scope="col">Name</th>
+                           <th scope="col">availability</th>
+                           
+                           
+                         
+                           
+                       </tr>
+                   </thead>
+                   <tbody id="photographer">
+                   </tbody>
+               </table>
+              
+               
+            </div>
+        </div>
+    </div>
+
+    <script src="./adminpage.js"></script>
+</body>
+</html>

@@ -15,7 +15,7 @@ const checkRole = (role) => {
 
 
 // Get all photographers
-photographerRouter.get('/',role(["client","photographer"]), async (req, res) => {
+photographerRouter.get('/',async (req, res) => {
   try {
     const photographers = await Photographer.find();
     res.json(photographers);
@@ -25,7 +25,7 @@ photographerRouter.get('/',role(["client","photographer"]), async (req, res) => 
 });
 
 // Retrieve bookings with the same client
-photographerRouter.get('/photographerbookings',role(["photographer"]), authenticate, async (req, res) => {
+photographerRouter.get('/photographerbookings', authenticate, async (req, res) => {
   try {
     const client = req.body.client;
 
@@ -40,7 +40,7 @@ photographerRouter.get('/photographerbookings',role(["photographer"]), authentic
 });
 
 // Create a new photographer
-photographerRouter.post('/',role(["photographer"]), async (req, res) => {
+photographerRouter.post('/', async (req, res) => {
   try {
     const photographer = new Photographer(req.body);
     await photographer.save();
@@ -51,7 +51,7 @@ photographerRouter.post('/',role(["photographer"]), async (req, res) => {
 });
 
 // Update a photographer by ID
-photographerRouter.put('/:id',role(["photographer"]), async (req, res) => {
+photographerRouter.put('/:id', async (req, res) => {
   try {
     const photographer = await Photographer.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!photographer) {
@@ -64,7 +64,7 @@ photographerRouter.put('/:id',role(["photographer"]), async (req, res) => {
 });
 
 // Delete a photographer by ID
-photographerRouter.delete('/:id',role(["photographer"]), async (req, res) => {
+photographerRouter.delete('/:id', async (req, res) => {
   try {
     const photographer = await Photographer.findByIdAndDelete(req.params.id);
     if (!photographer) {
