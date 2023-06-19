@@ -63,13 +63,13 @@ fetch(`${baseURL}createOrder`, {
   
 
   function payment(data){
-      let x = JSON.parse(localStorage.getItem("total"))
+      let x = JSON.parse(localStorage.getItem("total"));
       console.log(x)
       const options = {
       "key": "rzp_test_FkLG5L2aUSSixd",
       "amount": x*100,
       "currency": "INR",
-      "name": "Bake N Flake",
+      "name": "ShotSpotter",
       "order_id": data.orderId,
       "handler": function (response){
           console.log(response)

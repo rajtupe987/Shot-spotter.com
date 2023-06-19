@@ -17,9 +17,9 @@ const InStudio = () => {
   const [date2, setDate2] = useState('');
 
   useEffect(() => {
-    // photographer.name
-    document.title = { photographer };
-  }, []);
+    // Set the document title
+    document.title = photographer ? photographer.name : 'Loading...';
+  }, [photographer]);
 
   useEffect(() => {
     const baseServerURL = "https://api.example.com";
@@ -43,15 +43,21 @@ const InStudio = () => {
       const response = await fetch('https://your-api-url/bookings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ date1, date2 })
+        body: JSON.stringify({
+          customerContact: 'customer@example.com',
+          client: 'clientID', // Replace with the actual client ID
+          photographerId: photographer._id,
+          startTime: date1,
+          endTime: date2
+        })
       });
 
       if (response.ok) {
-        // Login successful, navigate to studio page
-        alert("Booking Successful");
-        navigate('/');
+        // Booking successful
+        alert('Booking Successful');
+        navigate('/bookings');
       } else {
-        // Login failed, display error message
+        // Booking failed, display error message
         const errorData = await response.json();
         setErrorMessage(errorData.msg);
         alert(errorMessage);
@@ -61,8 +67,7 @@ const InStudio = () => {
       setErrorMessage('An error occurred during booking. Please try again.');
       alert(errorMessage);
     }
-
-  }
+  };
 
   if (!photographer) {
     return <div id='loading'>Loading...</div>; // Show a loading indicator while fetching the data
