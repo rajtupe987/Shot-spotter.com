@@ -16,29 +16,35 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
       
-        try {
-          const response = await fetch('http://localhost:4002/user/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-          });
+    try {
+      const response = await fetch('https://aware-plum-crayfish.cyclic.app/user/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
 
-          if (response.ok) {
-            // Login successful, navigate to studio page
-            alert("LogIn Successful");
-            navigate('/studio');
-          } else {
-            // Login failed, display error message
-            const errorData = await response.json();
-            setErrorMessage(errorData.msg);
-          }
-        } catch (error) {
-          console.log(error);
-          setErrorMessage('An error occurred during login. Please try again.');
-        }
-      
+      if (response.ok) {
+        // Login successful, navigate to studio page
+        const data = await response.json();
+        
+        alert(data.msg);
+        console.log(data);
+
+        // Store the token in localStorage or state as needed
+        localStorage.setItem('token', data.token);
+        // setToken(token);
+        navigate('/studio');
+      } else {
+        // Login failed, display error message
+        const errorData = await response.json();
+        setErrorMessage(errorData.msg);
+      }
+    } catch (error) {
+      console.log(error);
+      setErrorMessage('An error occurred during login. Please try again.');
+    }
   }
-
+  
 
   return (
     <div className="login-container">

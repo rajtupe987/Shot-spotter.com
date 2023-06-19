@@ -19,7 +19,7 @@ const Register = () => {
 
     // Perform registration request to the backend
     try {
-      const response = await fetch('http://localhost:4002/user/register', {
+      const response = await fetch('https://aware-plum-crayfish.cyclic.app/user/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password })
@@ -37,6 +37,13 @@ const Register = () => {
       console.log(error);
       setErrorMessage('An error occurred during registration. Please try again.');
     }
+  };
+  const google = () => {
+    window.location.href = 'https://aware-plum-crayfish.cyclic.app/auth/google/callback';
+  };
+
+  const github = () => {
+    window.location.href = 'https://aware-plum-crayfish.cyclic.app/auth/github/callback';
   };
 
   return (
@@ -71,9 +78,9 @@ const Register = () => {
         Already have an account? <Link to="/login" className="login-link">Login</Link>
       </p>
       <div className="oauth-buttons">
-        <button className="google-button">
+        <button className="google-button" onClick={google} >
           <img src="https://cdn-icons-png.flaticon.com/128/300/300221.png" /> Sign up with Google</button>
-        <button className="github-button">
+        <button className="github-button" onClick={github} >
           <img src="https://cdn-icons-png.flaticon.com/128/179/179323.png" /> Sign up with GitHub</button>
       </div>
     </div>

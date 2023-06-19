@@ -22,3 +22,13 @@
     width: 100%;
     border: 1px solid #ccc;
 }
+
+.photographers-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    text-align: center;
+}
+
+.studio-img {
+    width: 200px;
+}
