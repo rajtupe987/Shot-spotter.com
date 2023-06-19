@@ -30,12 +30,12 @@ authRoute.get(
         let user = req.user;
         const token = jwt.sign({ userId: user._id }, process.env.secret, { expiresIn: '1hr' })
 
-        res.redirect(`http://localhost:8000/?id=${user._id}&token=${token}&role=${user.role}&approved=${user.approved}&username=${user.name}`); // chnge the link to frontend
+        res.redirect(`https://aware-plum-crayfish.cyclic.app/?id=${user._id}&token=${token}&role=${user.role}&approved=${user.approved}&username=${user.name}`); // chnge the link to frontend
     }
 );
 
 authRoute.get("/google/failure", (req, res) => {
-    res.redirect("hhttp://localhost:8000/")
+    res.redirect("hhttps://aware-plum-crayfish.cyclic.app/")
 })
 
 passport.use(
@@ -43,7 +43,7 @@ passport.use(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "http://localhost:8000/auth/google/callback", // change the callback link
+            callbackURL: "https://aware-plum-crayfish.cyclic.app/auth/google/callback", // change the callback link
             passReqToCallback: true
         },
         async function (request, accessToken, refreshToken, profile, cb) {
@@ -81,12 +81,12 @@ authRoute.get(
         let user = req.user;
         const token = jwt.sign({ userId: user._id }, process.env.secret, { expiresIn: '1hr' })
 
-        res.redirect(`http://localhost:8000/?id=${user._id}&token=${token}&role=${user.role}&approved=${user.approved}&username=${user.name}`);
+        res.redirect(`https://aware-plum-crayfish.cyclic.app/?id=${user._id}&token=${token}&role=${user.role}&approved=${user.approved}&username=${user.name}`);
     }
 );
 
 authRoute.get("/github/failure", (req, res) => {
-    res.redirect("http://localhost:8000/user/login")
+    res.redirect("https://aware-plum-crayfish.cyclic.app/user/login")
 })
 
 passportGithub.use(
@@ -94,7 +94,7 @@ passportGithub.use(
         {
             clientID: process.env.GITHUB_CLIENT_ID,
             clientSecret: process.env.GITHUB_CLIENT_SECRET,
-            callbackURL: "http://localhost:8000/auth/github/callback",
+            callbackURL: "https://aware-plum-crayfish.cyclic.app/auth/github/callback",
             scope: "user:email",
         },
         async function (request, accessToken, refreshToken, profile, done) {

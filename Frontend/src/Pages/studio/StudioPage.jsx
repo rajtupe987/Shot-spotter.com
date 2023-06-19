@@ -15,9 +15,17 @@ const StudioPage = () => {
 
   useEffect(() => {
     // Fetch photographers from the backend API
-    fetch('http://localhost:4002/studio')
+    const token = localStorage.getItem('token')
+    fetch('https://aware-plum-crayfish.cyclic.app/studio',{
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization:  token// Include the token in the Authorization header
+      }
+    })
       .then((response) => response.json())
-      .then((data) => setPhotographers(data))
+      .then((data) =>{ setPhotographers(data.photographers)
+              console.log(data);
+      })
       .catch((error) => console.log(error));
   }, []);
 
@@ -92,22 +100,22 @@ const StudioPage = () => {
         <div className="photographers-list">
           {photographers.map((photographer) => (
             <div
-              key={photographer.id}
+              key={photographer._id}
               className="card"
-              onClick={() => handleCardClick(photographer.id)}
+              onClick={() => handleCardClick(photographer._id)}
             >
               <div className="card-header">
                 <div className="studio-info">
                   <div className="studio-image">
-                    <img src={photographer.image} alt="Photographer" />
+                    <img src={photographer.image} alt="Photographer" className="studio-img" />
                   </div>
                   <div className="studio-details">
                     <h4>{photographer.name}</h4>
-                    <p>{photographer.address}</p>
-                    <p>{photographer.phoneNumber}</p>
+                    <p>{photographer.location[0]}</p>
+                    
                     <div className="categories">
-                      {photographer.categories.map((category) => (
-                        <span key={category.id} className="category-bubble">
+                      {photographer.expertise.map((category) => (
+                        <span key={category._id} className="category-bubble">
                           {category.name}
                         </span>
                       ))}
@@ -120,17 +128,12 @@ const StudioPage = () => {
                     <p>{photographer.price}</p>
                   </div>
                   <div>
-                    <p>{photographer.votes} Votes</p>
-                    <p>
-                      Star symbol {photographer.rating}
-                    </p>
+                    
                   </div>
                 </div>
               </div>
               <div className="image-container">
-                {photographer.images.map((image) => (
-                  <img key={image.id} src={image.url} alt="Photographer" />
-                ))}
+                
               </div>
             </div>
           ))}
