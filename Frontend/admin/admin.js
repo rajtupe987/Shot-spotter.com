@@ -1,6 +1,8 @@
 let submit_btn = document.querySelector("#login-button")
 
-
+// localStorage.setItem(token);
+// localStorage.setItem(userId);
+// localStorage.setItem(role)
 submit_btn.addEventListener("click",(event)=>{
    
    event.preventDefault()
