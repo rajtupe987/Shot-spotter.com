@@ -79,7 +79,7 @@ photographerRouter.put('/:id',authenticate,athorization(["photographer"]), async
 });
 
 // Delete a photographer by ID
-photographerRouter.delete('/:id',authenticate,athorization(["photographer"]), async (req, res) => {
+photographerRouter.delete('/:id',authenticate,athorization(["photographer","admin"]), async (req, res) => {
   try {
     const photographer = await Photographer.findByIdAndDelete(req.params.id);
     if (!photographer) {

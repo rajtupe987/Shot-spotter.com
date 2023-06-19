@@ -74,7 +74,7 @@ bookingRouter.patch('/:id',authenticate,athorization(["client","photographer"]),
 });
 
 // Retrieve bookings with the same client
-bookingRouter.get('/client',authenticate, authenticate, async (req, res) => {
+bookingRouter.get('/client',authenticate,athorization(["client"]), async (req, res) => {
   try {
     const client = req.body.client;
 

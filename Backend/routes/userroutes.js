@@ -30,7 +30,7 @@ userRoute.post("/user/register", async (req, res) => {
           password: hash,
         });
         await userRegisterData.save();
-        res.send({msg:"user registered"});
+        res.status(200).json({msg:"user registered"});
       }
     });
   }

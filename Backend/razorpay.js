@@ -49,61 +49,128 @@ app.post('/verifyOrder', (req, res)=>{
 /*****************Razorpay*****************************/
 
     
-fetch(`${baseURL}createOrder`, {
-    method: 'POST',
-  })
-  .then(response => response.json())
-  .then(data => {
-    console.log(data)
-      payment(data)
-  })
-  .catch(error => {
-    console.log(error);
-  });
+// fetch(`${baseURL}createOrder`, {
+//     method: 'POST',
+//   })
+//   .then(response => response.json())
+//   .then(data => {
+//     console.log(data)
+//       payment(data)
+//   })
+//   .catch(error => {
+//     console.log(error);
+//   });
   
 
-  function payment(data){
-      let x = JSON.parse(localStorage.getItem("total"))
-      console.log(x)
-      const options = {
-      "key": "rzp_test_FkLG5L2aUSSixd",
+//   function payment(data){
+//       let x = JSON.parse(localStorage.getItem("total"))
+//       console.log(x)
+//       const options = {
+//       "key": "77SrE1GqjzRMAc8Gqf9YjUB3",
+//       "amount": x*100,
+//       "currency": "INR",
+//       "name": "shotSpotter",
+//       "order_id": data.orderId,
+//       "handler": function (response){
+//           console.log(response)
+//           alert("This step of Payment Succeeded");
+//           window.location.href = "./success.html";
+
+//       },
+//       "prefill": {
+//           //Here we are prefilling random contact
+//           "contact":"9075537652",
+//           //name and email id, so while checkout
+//           "name": "Darshan Bhandwalkar",
+//           "email": "bhandwalkardarshan@gmail.com" 
+//       },
+//       "theme": {
+//           "color": "#2300a3"
+//       }
+//     };
+  
+//       var razorpayObject = new Razorpay(options);
+//       console.log(razorpayObject);
+  
+//       razorpayObject.on('payment.failed', function (response){
+//           console.log(response);
+//           alert("This step of Payment Failed");
+//       });
+  
+//       document.getElementById('pay-button').onclick = function(e){
+     
+//       e.preventDefault();
+      
+//       razorpayObject.open();
+//       }
+     
+//   }
+      
+  
+
+
+import React, { useEffect, useState } from 'react';
+import Razorpay from 'razorpay';
+
+const PaymentComponent = () => {
+  const [razorpayObject, setRazorpayObject] = useState(null);
+
+  useEffect(() => {
+    fetch(`${baseURL}createOrder`, {
+      method: 'POST',
+    })
+    .then(response => response.json())
+    .then(data => {
+      payment(data);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  }, []);
+
+  const payment = (data) => {
+    let x = JSON.parse(localStorage.getItem("total"));
+    console.log(x);
+    const options = {
+      "key": "7rzp_test_EIyEImx4Rfjccj",
       "amount": x*100,
       "currency": "INR",
-      "name": "Bake N Flake",
+      "name": "shotSpotter",
       "order_id": data.orderId,
       "handler": function (response){
-          console.log(response)
+          console.log(response);
           alert("This step of Payment Succeeded");
           window.location.href = "./success.html";
-
+          
       },
       "prefill": {
-          //Here we are prefilling random contact
-          "contact":"9075537652",
-          //name and email id, so while checkout
-          "name": "Darshan Bhandwalkar",
-          "email": "bhandwalkardarshan@gmail.com" 
+          "contact":"",
+          "name": "",
+          "email": "" 
       },
       "theme": {
           "color": "#2300a3"
       }
     };
-  
-      var razorpayObject = new Razorpay(options);
-      console.log(razorpayObject);
-  
-      razorpayObject.on('payment.failed', function (response){
-          console.log(response);
-          alert("This step of Payment Failed");
-      });
-  
-      document.getElementById('pay-button').onclick = function(e){
-     
-      e.preventDefault();
-      
-      razorpayObject.open();
-      }
-     
+
+    const razorpay = new Razorpay(options);
+    console.log(razorpay);
+    setRazorpayObject(razorpay);
+
+    razorpay.on('payment.failed', function (response){
+        console.log(response);
+        alert("This step of Payment Failed");
+    });
   }
-      
-  
+
+  const handlePayment = (e) => {
+    e.preventDefault();
+    razorpayObject.open();
+  }
+
+  return (
+    <button id='pay-button' onClick={handlePayment}>Pay</button>
+  );
+}
+
+export default PaymentComponent;
