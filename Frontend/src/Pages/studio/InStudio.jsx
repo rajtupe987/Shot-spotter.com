@@ -22,7 +22,7 @@ const InStudio = () => {
   }, [photographer]);
 
   useEffect(() => {
-    const baseServerURL = "https://aware-plum-crayfish.cyclic.app";
+    const baseServerURL = "https://bright-garb-eel.cyclic.cloud/";
     const fetchPhotographerData = async () => {
       try {
         const response = await fetch(`${baseServerURL}/studio/${studioID}`);
@@ -40,7 +40,7 @@ const InStudio = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://aware-plum-crayfish.cyclic.app/bookings', {
+      const response = await fetch('https://bright-garb-eel.cyclic.cloud/bookings', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

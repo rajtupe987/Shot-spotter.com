@@ -19,7 +19,7 @@ const Register = () => {
 
     // Perform registration request to the backend
     try {
-      const response = await fetch('https://aware-plum-crayfish.cyclic.app/user/register', {
+      const response = await fetch('https://bright-garb-eel.cyclic.cloud/user/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password })
