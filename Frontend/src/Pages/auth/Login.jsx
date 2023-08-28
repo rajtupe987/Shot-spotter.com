@@ -17,7 +17,7 @@ const Login = () => {
     e.preventDefault();
       
     try {
-      const response = await fetch('https://aware-plum-crayfish.cyclic.app/user/login', {
+      const response = await fetch('https://bright-garb-eel.cyclic.cloud/user/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })

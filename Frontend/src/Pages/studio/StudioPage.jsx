@@ -16,7 +16,7 @@ const StudioPage = () => {
   useEffect(() => {
     // Fetch photographers from the backend API
     const token = localStorage.getItem('token')
-    fetch('https://aware-plum-crayfish.cyclic.app/studio',{
+    fetch('https://bright-garb-eel.cyclic.cloud/studio',{
       headers: {
         'Content-Type': 'application/json',
         Authorization:  token// Include the token in the Authorization header
