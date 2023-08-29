@@ -11,7 +11,7 @@ const { userModel } = require("../models/usermodel");
 // sign up//
 
 userRoute.post("/user/register", async (req, res) => {
-  const { name, email, role, password } = req.body;
+  const { name, email, role = "client", password } = req.body;
   let userData = await userModel.find({ email });
   if (userData.length > 0) {
     res.status(400);
@@ -44,13 +44,12 @@ userRoute.post("/user/login", async (req, res) => {
   if (userData.length > 0) {
     bcrypt.compare(password, userData[0].password, function (err, result) {
       if (result) {
-        //   normal token
         var token = jwt.sign(
           { name: userData[0].name, userID: userData[0]._id },
           process.env.secret
         );
         res.send({
-          msg: "login successful",
+          msg: "Login Successful",
           token: token,
           username: userData[0].name,
           userID: userData[0]._id,
@@ -60,12 +59,11 @@ userRoute.post("/user/login", async (req, res) => {
 
       } else {
         res.status(400);
-        res.send({ msg: "wrong credentials" });
+        res.send({ msg: err.message });
       }
     });
   } else {
-    res.status(404);
-    res.send({ msg: "wrong credentials" });
+    res.status(404).json({ msg: "User not registered" });
   }
 });
 
