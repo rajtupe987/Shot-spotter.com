@@ -1,21 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../common/Navbar';
 import './StudioPage.css';
 
-const StudioPage = ({baseURL}) => {
+const StudioPage = ({ baseURL }) => {
 
   useEffect(() => {
     document.title = 'Studios';
-  }, []); 
+  }, []);
 
-  const categories = ["Portrait", "Landscape", "Lensmith", "Aperture", "Focalist", "Exposurist", "Shutterpro", "Imagemaker", "Cameralist", "Visualizer", "Lightographer", "Framographer", "Pictor", "Lumino", "Chroma", "Photowizard"];
+  const categoriesList = ["Weddings", "Babies & Kids", "Travel", "Fashion", "Portfolio", "Commercial", "Birthdays"];
 
-  const locations = ["Delhi", "Mumbai", "Nagpur", "Kerala", "Punjab", "Pune", "Kolkata", "Chennai", "Bangalore", "Hyderabad", "Chandigarh", "Jaipur", "Ahmedabad", "Lucknow", "Bhopal", "Guwahati", "Kochi"];
+  const locationsList = ["Delhi", "Mumbai", "Nagpur", "Kerala", "Punjab", "Pune", "Kolkata", "Chennai", "Bangalore", "Hyderabad", "Chandigarh", "Jaipur", "Ahmedabad", "Lucknow", "Bhopal", "Guwahati", "Kochi"];
 
   const [photographers, setPhotographers] = useState([]);
-  const [page,setPage] = useState(1);
-  const [tpage,setTPage] = useState(0);
+  const [page, setPage] = useState(1);
+  const [tpage, setTPage] = useState(0);
+  const [category, setCategory] = useState("");
+  const [location, setLocation] = useState("");
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
+  
+
 
   // Function to handle clicking on page numbers
   const handlePageClick = (pageNumber) => {
@@ -41,23 +47,44 @@ const StudioPage = ({baseURL}) => {
     pageNumbers.push(i);
   }
 
+  const handleCategoryChange = (event) => {
+    const selectedCategory = event.target.value;
+    setCategory(selectedCategory);
+  };
+
+  const handleLocationChange = (event) => {
+    const selectedLocation = event.target.value;
+    setLocation(selectedLocation);
+  };
+
+  const handlePriceChange = (event) => {
+    const selectedValue = event.target.value;
+    const [min, max] = selectedValue.split('-');
+    setMinPrice(min);
+    setMaxPrice(max);
+  };
+
   useEffect(() => {
-    // Fetch photographers from the backend API
-    const token = localStorage.getItem('token')
-    fetch(`${baseURL}/studio?page=${page}`,{
+
+    const token = localStorage.getItem('token');
+    let url = `${baseURL}/studio?page=${page}`;
+    if (location !== "") url += `&location=${location}`;
+    if (category !== "") url += `&category=${category}`;
+    console.log(url);
+    fetch(url, {
       headers: {
         'Content-Type': 'application/json',
-        Authorization:  token// Include the token in the Authorization header
+        Authorization: token// Include the token in the Authorization header
       }
     })
       .then((response) => response.json())
-      .then((data) =>{ 
-              setPhotographers(data.photographers);
-              setTPage(data.t_pages);
-              console.log(data);
+      .then((data) => {
+        setPhotographers(data.photographers);
+        setTPage(data.t_pages);
+        console.log(data);
       })
       .catch((error) => console.log(error));
-  }, [page]);
+  }, [page, location, category]);
 
   const navigate = useNavigate();
   const handleCardClick = (studioID) => {
@@ -73,24 +100,37 @@ const StudioPage = ({baseURL}) => {
           {/* Category filter */}
           <div className="filter-section">
             <h3>Categories</h3>
-            {categories.map((category) => (
-              <div key={category}>
-                <input type="radio" name="category" value={category} />
-                <label>{category}</label>
-              </div>
+            {categoriesList.map((cat) => (
+              <label key={cat} style={{ display: 'block' }}>
+                <input
+                  type="radio"
+                  name="category"
+                  value={cat}
+                  checked={category === cat}
+                  onChange={handleCategoryChange}
+                />
+                {cat}
+              </label>
             ))}
           </div>
+
 
           <hr />
 
           {/* Location filter */}
           <div className="filter-section">
             <h3>Locations</h3>
-            {locations.map((location) => (
-              <div key={location}>
-                <input type="radio" name="location" value={location} />
-                <label>{location}</label>
-              </div>
+            {locationsList.map((loc) => (
+              <label key={loc} style={{ display: 'block' }}>
+                <input
+                  type="radio"
+                  name="location"
+                  value={loc}
+                  checked={location === loc}
+                  onChange={handleLocationChange}
+                />
+                {loc}
+              </label>
             ))}
           </div>
 
@@ -124,7 +164,6 @@ const StudioPage = ({baseURL}) => {
               <label>₹40,000 - ₹50,000</label>
             </div>
           </div>
-
         </div>
 
         <div>
@@ -152,7 +191,7 @@ const StudioPage = ({baseURL}) => {
                   </div>
                 </div>
                 <div className="image-container">
-                  
+
                 </div>
               </div>
             ))}
@@ -179,7 +218,7 @@ const StudioPage = ({baseURL}) => {
               <button onClick={handleNextClick}>Next</button>
             </div>
           )}
-          
+
         </div>
       </div>
     </div>

@@ -16,12 +16,23 @@ photographerRouter.get('/',authenticate,athorization(["client","admin","photogra
   const limit = parseInt(req.query.limit) || 10; // Get the limit of photographers per page from query parameters, default to 10 if not provided
   const page = parseInt(req.query.page) || 1; // Get the requested page from query parameters, default to page 1 if not provided
   const skip = (page - 1) * limit; // Calculate the number of documents to skip based on page and limit
+  const category = req.query.category;
+  const location = req.query.location;
+
+  const filter = {};
+
+  if (category) {
+    filter['expertise'] = { $in: [category] };
+  }
+  if (location) {
+    filter['location'] = { $in: [location] };
+  }
 
   try {
-    const totalPhotographersCount = await Photographer.countDocuments();
+    const totalPhotographersCount = await Photographer.countDocuments(filter);
     const totalPages = Math.ceil(totalPhotographersCount / limit);
 
-    const photographers = await Photographer.find().skip(skip).limit(limit);
+    const photographers = await Photographer.find(filter).skip(skip).limit(limit);
     res.status(200).json({t_pages: totalPages,page, photographers});
   } catch (error) {
     res.status(500).json({ error: 'Internal server error', message: error.message });
