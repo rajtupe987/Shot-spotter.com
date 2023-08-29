@@ -18,6 +18,8 @@ photographerRouter.get('/',authenticate,athorization(["client","admin","photogra
   const skip = (page - 1) * limit; // Calculate the number of documents to skip based on page and limit
   const category = req.query.category;
   const location = req.query.location;
+  const minPrice = parseInt(req.query.min);
+  const maxPrice = parseInt(req.query.max);
 
   const filter = {};
 
@@ -26,6 +28,9 @@ photographerRouter.get('/',authenticate,athorization(["client","admin","photogra
   }
   if (location) {
     filter['location'] = { $in: [location] };
+  }
+  if (!isNaN(minPrice) && !isNaN(maxPrice)) {
+    filter['price'] = { $gte: minPrice, $lte: maxPrice };
   }
 
   try {

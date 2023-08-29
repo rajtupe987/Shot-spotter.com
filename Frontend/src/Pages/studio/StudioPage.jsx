@@ -20,7 +20,7 @@ const StudioPage = ({ baseURL }) => {
   const [location, setLocation] = useState("");
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
-  
+
 
 
   // Function to handle clicking on page numbers
@@ -70,6 +70,7 @@ const StudioPage = ({ baseURL }) => {
     let url = `${baseURL}/studio?page=${page}`;
     if (location !== "") url += `&location=${location}`;
     if (category !== "") url += `&category=${category}`;
+    if (minPrice!=="" && maxPrice!=="") url += `&min=${+minPrice}&max=${+maxPrice}`;
     console.log(url);
     fetch(url, {
       headers: {
@@ -139,31 +140,73 @@ const StudioPage = ({ baseURL }) => {
           {/* Price filter */}
           <div className="filter-section">
             <h3>Price Range</h3>
-            <div>
-              <input type="radio" name="price" value="5000" />
-              <label>Below ₹5,000</label>
-            </div>
-            <div>
-              <input type="radio" name="price" value="5000-10000" />
-              <label>₹5,000 - ₹10,000</label>
-            </div>
-            <div>
-              <input type="radio" name="price" value="10000-20000" />
-              <label>₹10,000 - ₹20,000</label>
-            </div>
-            <div>
-              <input type="radio" name="price" value="20000-30000" />
-              <label>₹20,000 - ₹30,000</label>
-            </div>
-            <div>
-              <input type="radio" name="price" value="30000-40000" />
-              <label>₹30,000 - ₹40,000</label>
-            </div>
-            <div>
-              <input type="radio" name="price" value="40000-50000" />
-              <label>₹40,000 - ₹50,000</label>
-            </div>
+            <label style={{ display: 'block' }}>
+              <input
+                type="radio"
+                name="price"
+                value="0-5000"
+                onChange={handlePriceChange}
+                checked={minPrice === '0' && maxPrice === '5000'}
+              />
+              Below ₹5,000
+            </label>
+
+            <label style={{ display: 'block' }}>
+              <input
+                type="radio"
+                name="price"
+                value="5000-10000"
+                onChange={handlePriceChange}
+                checked={minPrice === '5000' && maxPrice === '10000'}
+              />
+              ₹5,000 - ₹10,000
+            </label>
+
+            <label style={{ display: 'block' }}>
+              <input
+                type="radio"
+                name="price"
+                value="10000-20000"
+                onChange={handlePriceChange}
+                checked={minPrice === '10000' && maxPrice === '20000'}
+              />
+              ₹10,000 - ₹20,000
+            </label>
+
+            <label style={{ display: 'block' }}>
+              <input
+                type="radio"
+                name="price"
+                value="20000-30000"
+                onChange={handlePriceChange}
+                checked={minPrice === '20000' && maxPrice === '30000'}
+              />
+              ₹20,000 - ₹30,000
+            </label>
+
+            <label style={{ display: 'block' }}>
+              <input
+                type="radio"
+                name="price"
+                value="30000-40000"
+                onChange={handlePriceChange}
+                checked={minPrice === '30000' && maxPrice === '40000'}
+              />
+              ₹30,000 - ₹40,000
+            </label>
+
+            <label style={{ display: 'block' }}>
+              <input
+                type="radio"
+                name="price"
+                value="40000-50000"
+                onChange={handlePriceChange}
+                checked={minPrice === '40000' && maxPrice === '50000'}
+              />
+              ₹40,000 - ₹50,000
+            </label>
           </div>
+
         </div>
 
         <div>
