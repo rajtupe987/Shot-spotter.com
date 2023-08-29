@@ -21,11 +21,8 @@ photographerRouter.get('/',authenticate,athorization(["client","admin","photogra
     const totalPhotographersCount = await Photographer.countDocuments();
     const totalPages = Math.ceil(totalPhotographersCount / limit);
 
-    const photographers = await Photographer.find()
-      .skip(skip)
-      .limit(limit);
-
-    res.json({photographers});
+    const photographers = await Photographer.find().skip(skip).limit(limit);
+    res.status(200).json({t_pages: totalPages,page, photographers});
   } catch (error) {
     res.status(500).json({ error: 'Internal server error', message: error.message });
   }

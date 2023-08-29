@@ -7,7 +7,7 @@ import Albums from './Albums';
 import Packages from './Packages';
 import Reviews from './Reviews';
 
-const InStudio = () => {
+const InStudio = ({baseURL}) => {
 
   const { studioID } = useParams();
   const navigate = useNavigate();
@@ -22,10 +22,9 @@ const InStudio = () => {
   }, [photographer]);
 
   useEffect(() => {
-    const baseServerURL = "https://bright-garb-eel.cyclic.cloud/";
     const fetchPhotographerData = async () => {
       try {
-        const response = await fetch(`${baseServerURL}/studio/${studioID}`);
+        const response = await fetch(`${baseURL}/studio/${studioID}`);
         const data = await response.json();
         setPhotographer(data);
       } catch (error) {
@@ -40,7 +39,7 @@ const InStudio = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('https://bright-garb-eel.cyclic.cloud/bookings', {
+      const response = await fetch(`${baseURL}/bookings`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

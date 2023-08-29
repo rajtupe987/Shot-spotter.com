@@ -18,7 +18,7 @@ const AdminPage = () => {
   // Fetch data from the server
   const getData = async () => {
     try {
-      const res = await fetch("http://localhost:4002/studio", {
+      const res = await fetch(`${baseURL}/studio`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

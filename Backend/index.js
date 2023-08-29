@@ -26,16 +26,8 @@ app.use(express.json());
 
 app.use(userRoute);
 app.use("/admin",adminRouter)
-
-// app.get("/", (req, res) => {
-//   res.send("welcome to apiace");
-// });
-
 //app.use("/auth", authRoute);
 app.use("/studio", photographerRouter);
-
-//app.use("/auth", authRoute);
-
 app.use("/bookings", bookingRouter);
 
 
