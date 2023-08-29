@@ -2,7 +2,7 @@ import "./addphotographers.css";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 
-const AddPhotographerForm = () => {
+const AddPhotographerForm = ({baseURL}) => {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [profile, setProfile] = useState("");
@@ -25,7 +25,7 @@ const AddPhotographerForm = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:4002/studio", {
+      const response = await fetch(`${baseURL}/studio`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

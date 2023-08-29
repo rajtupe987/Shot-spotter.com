@@ -1,33 +1,63 @@
-// ---------------------------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link, useParams } from 'react-router-dom';
 import Navbar from '../common/Navbar';
 import './StudioPage.css';
 
-const StudioPage = () => {
+const StudioPage = ({baseURL}) => {
+
+  useEffect(() => {
+    document.title = 'Studios';
+  }, []); 
+
   const categories = ["Portrait", "Landscape", "Lensmith", "Aperture", "Focalist", "Exposurist", "Shutterpro", "Imagemaker", "Cameralist", "Visualizer", "Lightographer", "Framographer", "Pictor", "Lumino", "Chroma", "Photowizard"];
 
   const locations = ["Delhi", "Mumbai", "Nagpur", "Kerala", "Punjab", "Pune", "Kolkata", "Chennai", "Bangalore", "Hyderabad", "Chandigarh", "Jaipur", "Ahmedabad", "Lucknow", "Bhopal", "Guwahati", "Kochi"];
 
   const [photographers, setPhotographers] = useState([]);
+  const [page,setPage] = useState(1);
+  const [tpage,setTPage] = useState(0);
+
+  // Function to handle clicking on page numbers
+  const handlePageClick = (pageNumber) => {
+    setPage(pageNumber);
+  };
+
+  // Function to handle clicking on "Prev" button
+  const handlePrevClick = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
+
+  // Function to handle clicking on "Next" button
+  const handleNextClick = () => {
+    if (page < tpage) {
+      setPage(page + 1);
+    }
+  };
+
+  const pageNumbers = [];
+  for (let i = 1; i <= tpage; i++) {
+    pageNumbers.push(i);
+  }
 
   useEffect(() => {
     // Fetch photographers from the backend API
     const token = localStorage.getItem('token')
-    fetch('https://bright-garb-eel.cyclic.cloud/studio',{
+    fetch(`${baseURL}/studio?page=${page}`,{
       headers: {
         'Content-Type': 'application/json',
         Authorization:  token// Include the token in the Authorization header
       }
     })
       .then((response) => response.json())
-      .then((data) =>{ setPhotographers(data.photographers)
+      .then((data) =>{ 
+              setPhotographers(data.photographers);
+              setTPage(data.t_pages);
               console.log(data);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [page]);
 
   const navigate = useNavigate();
   const handleCardClick = (studioID) => {
@@ -97,46 +127,59 @@ const StudioPage = () => {
 
         </div>
 
-        <div className="photographers-list">
-          {photographers.map((photographer) => (
-            <div
-              key={photographer._id}
-              className="card"
-              onClick={() => handleCardClick(photographer._id)}
-            >
-              <div className="card-header">
-                <div className="studio-info">
-                  <div className="studio-image">
+        <div>
+          {/* Studio Listed */}
+          <div className="photographers-list">
+            {photographers.map((photographer) => (
+              <div
+                key={photographer._id}
+                className="card"
+                onClick={() => handleCardClick(photographer._id)}
+              >
+                <div className="card-header">
+                  <div className="studio-info">
                     <img src={photographer.image} alt="Photographer" className="studio-img" />
-                  </div>
-                  <div className="studio-details">
-                    <h4>{photographer.name}</h4>
-                    <p>{photographer.location[0]}</p>
-                    
-                    <div className="categories">
-                      {photographer.expertise.map((category) => (
-                        <span key={category._id} className="category-bubble">
-                          {category.name}
-                        </span>
-                      ))}
+                    <div className="studio-details">
+                      <h3>{photographer.name}</h3>
+                      <p>{photographer.location[0]}</p>
+                      <div className="categories">
+                        {photographer.expertise.map((category) => (
+                          <span className="category-bubble">{category}</span>
+                        ))}
+                      </div>
+                      <p className="price-info">Starts from: ₹{photographer.price}</p>
                     </div>
                   </div>
                 </div>
-                <div className="price-info">
-                  <div>
-                    <p>Starts from:</p>
-                    <p>{photographer.price}</p>
-                  </div>
-                  <div>
-                    
-                  </div>
+                <div className="image-container">
+                  
                 </div>
               </div>
-              <div className="image-container">
-                
-              </div>
+            ))}
+          </div>
+
+          {/* Pagination */}
+          {tpage > 0 && (
+            <div id="pagination">
+              {/* "Prev" button */}
+              <button onClick={handlePrevClick}>Prev</button>
+
+              {/* Page numbers */}
+              {pageNumbers.map((pageNumber) => (
+                <button
+                  key={pageNumber}
+                  onClick={() => handlePageClick(pageNumber)}
+                  className={page === pageNumber ? 'active' : ''}
+                >
+                  {pageNumber}
+                </button>
+              ))}
+
+              {/* "Next" button */}
+              <button onClick={handleNextClick}>Next</button>
             </div>
-          ))}
+          )}
+          
         </div>
       </div>
     </div>

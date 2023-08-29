@@ -9,19 +9,21 @@ import InStudio from './Pages/studio/InStudio';
 import AccountPage from './Pages/account/Account';
 import BookingsPage from './Pages/account/Bookings';
 import ShortlistPage from './Pages/account/Shortlist';
+const baseURL = "https://bright-garb-eel.cyclic.cloud/";
+// const baseURL = "http://localhost:4002";
 
 const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/studio" element={<StudioPage />} />
-        <Route path="/studio/:studio_id" element={<InStudio />} />
-        <Route path="/account" element={<AccountPage />} />
-        <Route path="/bookings" element={<BookingsPage />} />
-        <Route path="/shortlist" element={<ShortlistPage />} />
+        <Route path="/" element={<HomePage baseURL={baseURL} />} />
+        <Route path="/login" element={<LoginPage baseURL={baseURL} />} />
+        <Route path="/register" element={<RegisterPage baseURL={baseURL} />} />
+        <Route path="/studio" element={<StudioPage baseURL={baseURL} />} />
+        <Route path="/studio/:studio_id" element={<InStudio baseURL={baseURL} />} />
+        <Route path="/account" element={<AccountPage baseURL={baseURL} />} />
+        <Route path="/bookings" element={<BookingsPage baseURL={baseURL} />} />
+        <Route path="/shortlist" element={<ShortlistPage baseURL={baseURL} />} />
       </Routes>
     </Router>
   );

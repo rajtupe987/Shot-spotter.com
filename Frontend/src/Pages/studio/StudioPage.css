@@ -20,15 +20,87 @@
 
 #container > div:nth-child(2){
     width: 100%;
-    border: 1px solid #ccc;
+    padding: 20px;
+    /* border: 1px solid #ccc; */
 }
 
 .photographers-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     text-align: center;
+    gap: 20px;
 }
 
 .studio-img {
-    width: 200px;
+    height: 150px;
+    aspect-ratio: 5/3;
+}
+
+.card {
+    border-radius: 10px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    overflow: hidden;
+    height: 150px;
+
+}
+
+.studio-info {
+    display: flex;
+    gap: 10px;
+    height: 100%;
+}
+
+.studio-details {
+    padding: 10px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.studio-details h3,p {
+    margin: 0px;
+}
+
+.categories {
+    font-size: 12px;
+    display: flex;
+    gap: 5px;
+}
+
+.category-bubble {
+    border-radius: 5px;
+    color: white;
+    background-color: #57866f;
+    padding: 3px 5px;
+}
+
+.book-btn {
+    width: 60px;
+    height: 25px;
+}
+
+#pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0px;
+}
+
+#pagination > button {
+    border: none;
+    border-radius: 20px;
+    background-color: #f0fef7;
+    color: #57866f;
+    padding: 10px 20px ;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid #57866f;
+}
+
+#pagination .active {
+    color: #f0fef7;
+    background-color: #57866f;
+    border: 1px solid transparent;
 }

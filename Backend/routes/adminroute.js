@@ -48,8 +48,6 @@ adminRouter.post("/login",async(req,res)=>{
               }else{
                   res.send("please register first")
               }
-
-              
           })
       }else{
           res.send("please register first")

@@ -35,8 +35,8 @@ userRoute.post("/user/register", async (req, res) => {
     });
   }
 });
-//login//
 
+//login//
 userRoute.post("/user/login", async (req, res) => {
   const { email, password } = req.body;
   let userData = await userModel.find({ email });
@@ -68,8 +68,8 @@ userRoute.post("/user/login", async (req, res) => {
     res.send({ msg: "wrong credentials" });
   }
 });
-//logout//
 
+//logout//
 userRoute.post("/user/logout", async (req, res) => {
   const token = req.headers.authorization;
   const blackListData = JSON.parse(
@@ -102,8 +102,8 @@ userRoute.post("/otp", async (req, res) => {
     res.send("something went wrong while sending otp");
   }
 });
-//reset password//
 
+//reset password//
 userRoute.patch("/reset", async (req, res) => {
   try {
     const payload = req.body;
@@ -133,7 +133,5 @@ userRoute.patch("/reset", async (req, res) => {
     res.send("something went wrong please try again");
   }
 });
-
-
 
 module.exports = { userRoute };
