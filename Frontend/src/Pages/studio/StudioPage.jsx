@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../common/Navbar';
+import Footer from '../common/Footer';
 import './StudioPage.css';
 
 const StudioPage = ({ baseURL }) => {
@@ -9,7 +10,7 @@ const StudioPage = ({ baseURL }) => {
     document.title = 'Studios';
   }, []);
 
-  const categoriesList = ["Weddings", "Babies & Kids", "Travel", "Fashion", "Portfolio", "Commercial", "Birthdays"];
+  const categoriesList = ["Weddings", "Babies&Kids", "Travel", "Fashion", "Portfolio", "Commercial", "Birthdays"];
 
   const locationsList = ["Delhi", "Mumbai", "Nagpur", "Kerala", "Punjab", "Pune", "Kolkata", "Chennai", "Bangalore", "Hyderabad", "Chandigarh", "Jaipur", "Ahmedabad", "Lucknow", "Bhopal", "Guwahati", "Kochi"];
 
@@ -20,8 +21,6 @@ const StudioPage = ({ baseURL }) => {
   const [location, setLocation] = useState("");
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
-
-
 
   // Function to handle clicking on page numbers
   const handlePageClick = (pageNumber) => {
@@ -70,7 +69,7 @@ const StudioPage = ({ baseURL }) => {
     let url = `${baseURL}/studio?page=${page}`;
     if (location !== "") url += `&location=${location}`;
     if (category !== "") url += `&category=${category}`;
-    if (minPrice!=="" && maxPrice!=="") url += `&min=${+minPrice}&max=${+maxPrice}`;
+    if (minPrice !== "" && maxPrice !== "") url += `&min=${+minPrice}&max=${+maxPrice}`;
     console.log(url);
     fetch(url, {
       headers: {
@@ -85,7 +84,7 @@ const StudioPage = ({ baseURL }) => {
         console.log(data);
       })
       .catch((error) => console.log(error));
-  }, [page, location, category]);
+  }, [page, location, category, minPrice, maxPrice]);
 
   const navigate = useNavigate();
   const handleCardClick = (studioID) => {
@@ -114,7 +113,6 @@ const StudioPage = ({ baseURL }) => {
               </label>
             ))}
           </div>
-
 
           <hr />
 
@@ -155,55 +153,44 @@ const StudioPage = ({ baseURL }) => {
               <input
                 type="radio"
                 name="price"
-                value="5000-10000"
+                value="5000-15000"
                 onChange={handlePriceChange}
-                checked={minPrice === '5000' && maxPrice === '10000'}
+                checked={minPrice === '5000' && maxPrice === '15000'}
               />
-              ₹5,000 - ₹10,000
+              ₹5,000 - ₹15,000
             </label>
 
             <label style={{ display: 'block' }}>
               <input
                 type="radio"
                 name="price"
-                value="10000-20000"
+                value="15000-35000"
                 onChange={handlePriceChange}
-                checked={minPrice === '10000' && maxPrice === '20000'}
+                checked={minPrice === '15000' && maxPrice === '35000'}
               />
-              ₹10,000 - ₹20,000
+              ₹15,000 - ₹35,000
             </label>
 
             <label style={{ display: 'block' }}>
               <input
                 type="radio"
                 name="price"
-                value="20000-30000"
+                value="35000-50000"
                 onChange={handlePriceChange}
-                checked={minPrice === '20000' && maxPrice === '30000'}
+                checked={minPrice === '35000' && maxPrice === '50000'}
               />
-              ₹20,000 - ₹30,000
+              ₹35,000 - ₹50,000
             </label>
 
             <label style={{ display: 'block' }}>
               <input
                 type="radio"
                 name="price"
-                value="30000-40000"
+                value="50000-70000"
                 onChange={handlePriceChange}
-                checked={minPrice === '30000' && maxPrice === '40000'}
+                checked={minPrice === '50000' && maxPrice === '70000'}
               />
-              ₹30,000 - ₹40,000
-            </label>
-
-            <label style={{ display: 'block' }}>
-              <input
-                type="radio"
-                name="price"
-                value="40000-50000"
-                onChange={handlePriceChange}
-                checked={minPrice === '40000' && maxPrice === '50000'}
-              />
-              ₹40,000 - ₹50,000
+              ₹50,000 - ₹70,000
             </label>
           </div>
 
@@ -223,7 +210,11 @@ const StudioPage = ({ baseURL }) => {
                     <img src={photographer.image} alt="Photographer" className="studio-img" />
                     <div className="studio-details">
                       <h3>{photographer.name}</h3>
-                      <p>{photographer.location[0]}</p>
+                      <div className="locations">
+                        {photographer.location.map((loc) => (
+                          <span className="loc-bubble">{loc}</span>
+                        ))}
+                      </div>
                       <div className="categories">
                         {photographer.expertise.map((category) => (
                           <span className="category-bubble">{category}</span>
@@ -264,6 +255,7 @@ const StudioPage = ({ baseURL }) => {
 
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

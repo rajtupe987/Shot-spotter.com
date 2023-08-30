@@ -14,14 +14,12 @@ userRoute.post("/user/register", async (req, res) => {
   const { name, email, role = "client", password } = req.body;
   let userData = await userModel.find({ email });
   if (userData.length > 0) {
-    res.status(400);
-    res.send({msg: "user already exists"});
+    res.status(400).json({msg: "User already exists"});
   } else {
     bcrypt.hash(password, +process.env.saltRounds, async function (err, hash) {
       if (err) {
         console.log(err);
-        res.status(400);
-        res.send({msg:"something went wrong"});
+        res.status(400).json({msg: err.message});
       } else {
         let userRegisterData = userModel({
           name,
@@ -30,7 +28,7 @@ userRoute.post("/user/register", async (req, res) => {
           password: hash,
         });
         await userRegisterData.save();
-        res.send({msg:"user registered"});
+        res.status(200).json({msg:"User registered"});
       }
     });
   }
@@ -40,7 +38,7 @@ userRoute.post("/user/register", async (req, res) => {
 userRoute.post("/user/login", async (req, res) => {
   const { email, password } = req.body;
   let userData = await userModel.find({ email });
-  console.log(userData);
+  // console.log(userData);
   if (userData.length > 0) {
     bcrypt.compare(password, userData[0].password, function (err, result) {
       if (result) {
@@ -48,7 +46,7 @@ userRoute.post("/user/login", async (req, res) => {
           { name: userData[0].name, userID: userData[0]._id },
           process.env.secret
         );
-        res.send({
+        res.status(200).json({
           msg: "Login Successful",
           token: token,
           username: userData[0].name,
@@ -63,7 +61,7 @@ userRoute.post("/user/login", async (req, res) => {
       }
     });
   } else {
-    res.status(404).json({ msg: "User not registered" });
+    res.status(400).json({msg: "User not registered"});
   }
 });
 
@@ -75,7 +73,7 @@ userRoute.post("/user/logout", async (req, res) => {
   );
   blackListData.push(token);
   fs.writeFileSync("blacklist.token.json", JSON.stringify(blackListData));
-  res.send({msg:"logout successful"});
+  res.status(200).json({msg:"Logout successful"});
 });
 
 //otp generate//
@@ -113,22 +111,20 @@ userRoute.patch("/reset", async (req, res) => {
 
     if (userData.length > 0) {
       const ID = userData[0]._id;
-      bcrypt.hash(password, 3, async function (err, hashed) {
-        const reset = { password: hashed };
+      bcrypt.hash(password, process.env.saltRounds, async (err, hash) => {
+        const reset = { password: hash };
         await userModel.findByIdAndUpdate({ _id: ID }, reset);
-        res.status(200).send({
+        res.status(200).json({
           ok: true,
-          message: "Password Reset Successfully",
+          msg: "Password Reset Successfully",
         });
       });
     } else {
-      res.status(400);
-      res.send({ message: "something went wrong" });
+      res.status(400).json({msg: "User not found"});
     }
   } catch (error) {
     console.log(error);
-    res.status(400);
-    res.send("something went wrong please try again");
+    res.status(400).json({msg: error.message});
   }
 });
 

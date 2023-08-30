@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import './Register.css'; // Import the CSS file
 
-const Register = () => {
+const Register = ({baseURL}) => {
 
   useEffect(() => {
     document.title = 'Signup on ShotSpotter';
@@ -16,10 +16,8 @@ const Register = () => {
 
   const handleRegister = async (e) => {
     e.preventDefault();
-
-    // Perform registration request to the backend
     try {
-      const response = await fetch('https://bright-garb-eel.cyclic.cloud/user/register', {
+      const response = await fetch(`${baseURL}/user/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password })
@@ -39,11 +37,11 @@ const Register = () => {
     }
   };
   const google = () => {
-    window.location.href = 'https://aware-plum-crayfish.cyclic.app/auth/google/callback';
+    window.location.href = `${baseURL}/auth/google/callback`;
   };
 
   const github = () => {
-    window.location.href = 'https://aware-plum-crayfish.cyclic.app/auth/github/callback';
+    window.location.href = `${baseURL}/auth/github/callback`;
   };
 
   return (
@@ -57,6 +55,7 @@ const Register = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="input-field"
+          required
         />
         <input
           type="email"
@@ -64,6 +63,7 @@ const Register = () => {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="input-field"
+          required
         />
         <input
           type="password"
@@ -71,6 +71,7 @@ const Register = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="input-field"
+          required
         />
         <button type="submit" className="register-button">Register</button>
       </form>
