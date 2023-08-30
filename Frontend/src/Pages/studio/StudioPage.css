@@ -45,7 +45,7 @@
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
     overflow: hidden;
     height: 150px;
-
+    cursor: pointer;
 }
 
 .studio-info {
@@ -59,24 +59,28 @@
     text-align: left;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
 }
 
 .studio-details h3,p {
     margin: 0px;
 }
 
-.categories {
+.categories,.locations {
     font-size: 12px;
     display: flex;
     gap: 5px;
 }
 
-.category-bubble {
+.category-bubble,.loc-bubble {
     border-radius: 5px;
     color: white;
     background-color: #57866f;
-    padding: 3px 5px;
+    padding: 3px 6px;
+}
+
+.loc-bubble {
+    background-color: rgb(88, 84, 79);
 }
 
 .book-btn {
@@ -107,4 +111,38 @@
     color: #f0fef7;
     background-color: #57866f;
     border: 1px solid transparent;
+}
+
+@media screen and (min-width: 800px) and (max-width: 1200px) {
+    .card {
+        height: auto;
+    }
+    .studio-info {
+        flex-direction: column;
+        gap: 0px;
+    }
+    .studio-img {
+        height: auto;
+        aspect-ratio: 5/3;
+    }
+}
+
+@media screen and (max-width: 799px) {
+    .photographers-list {
+        grid-template-columns: repeat(1,1fr);
+    }
+}
+
+@media screen and (max-width: 699px) {
+    .card {
+        height: auto;
+    }
+    .studio-info {
+        flex-direction: column;
+        gap: 0px;
+    }
+    .studio-img {
+        height: auto;
+        aspect-ratio: 5/3;
+    }
 }

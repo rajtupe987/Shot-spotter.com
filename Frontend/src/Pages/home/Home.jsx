@@ -105,21 +105,19 @@ const HomePage = () => {
       <section id="slider">
         <div className="slider-image" style={{ backgroundImage: `url('${sliderImage}')` }}>
           <div className="slider-text">
-            <h1 style={{ fontSize: '4rem' }}>SHOTSPOTTER</h1>
+            <h1 style={{ fontSize: '4rem' }}>ShotSpotter</h1>
             <h3>
               Book <span id="category">{category}</span> PhotoShoot Today
             </h3>
             <div>
               <select name="Category" id="category_select">
                 <option value="">Category</option>
-                <option value="">Wedding</option>
-                <option value="">Babies & Kids</option>
-                <option value="">Special Occasion</option>
-                <option value="">Commercial</option>
-                <option value="">Corporate Events</option>
-                <option value="">Fashion & Portfolio</option>
-                <option value="">Nature</option>
-                <option value="">Travel</option>
+                <option value="Weddings">Weddings</option>
+                <option value="Babies&Kids">Babies & Kids</option>
+                <option value="Travel">Travel</option>
+                <option value="Fashion">Fashion & Portfolio</option>
+                <option value="Commercial">Commercial</option>
+                <option value="Birthdays">Birthdays</option>
               </select>
               <input type="text" id="search_city" placeholder="Search City" />
               <button id="search_city_btn">Search</button>
@@ -127,6 +125,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
       {/* TYPES SECTION */}
       <div className="types">
         <div>
@@ -158,6 +157,7 @@ const HomePage = () => {
           <h3>TRAVEL</h3>
         </div>
       </div>
+
       {/* HOW IT WORKS */}
       <section className="works">
         <h2>How It Works</h2>
@@ -179,6 +179,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
       {/* wedding section */}
       <section className="wedding"></section>
       {/* babies section */}
@@ -187,6 +188,7 @@ const HomePage = () => {
       <section className="occasion"></section>
       {/* food section */}
       <section className="food"></section>
+
       {/* review section */}
       <section className="review">
         <h3>What people are saying…</h3>
@@ -214,10 +216,12 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
       <div className="banner">
         <h1>Are you a Professional Photographer?</h1>
         <button id="reg_studio">Register as Studio</button>
       </div>
+
       <div className="stats">
         <div>
           <h1>981</h1>

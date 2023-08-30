@@ -85,12 +85,13 @@
 .slider-text div {
     width: 150%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    align-items: center;
     position: absolute;
     left: -30%;
     /* border: 2px solid red; */
-    margin: auto;
-}
+    margin-top: 20px;
+} 
 
 #category {
     margin: auto;
@@ -103,28 +104,29 @@
 #category_select,
 #search_city,
 #search_city_btn {
-    height: 2.5rem;
-    padding: 0 .75rem;
-    margin: 1.5rem;
+    padding-left: 10px;
     border-radius: 0.25rem;
     font-size: 1rem;
 }
 
 #search_city {
-    width: 21rem;
+    height: 37px;
+    width: 50%;
     outline: none;
 }
 
 #category_select {
+    height: 40px;
     border: none;
     border-radius: 0.25rem;
 }
 
 #search_city_btn {
+    height: 40px;
     background: black;
     color: white;
     border: none;
-    padding: 0 1.75rem;
+    padding: 12px 40px;
 }
 
 #search_city_btn:hover,
@@ -139,6 +141,7 @@
     grid-gap: 1rem;
     width: 100%;
     margin: 1rem 0;
+    box-sizing: border-box;
 }
 
 .types>div {
@@ -180,7 +183,8 @@
 }
 
 .review {
-    width: 86.5%;
+    box-sizing: border-box;
+    width: auto;
     padding: 5rem;
     text-align: center;
     -webkit-clip-path: polygon(0 0, 100% 13%, 100% 100%, 0 87%);
@@ -237,13 +241,37 @@
 }
 
 .stats {
-    display: flex;
-    width: 70%;
-    margin: auto;
-    justify-content: space-between;
-    text-align: center;
-    font-size: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px;
 }
+
+.stats div {
+    text-align: center;
+}
+
+.stats h1 {
+    font-size: 36px;
+}
+
+.stats p {
+    font-size: 16px;
+}
+
+@media screen and (max-width: 900px) {
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stats div {
+        margin: 10px 0;
+    }
+
+    
+}
+
 
 /* Responsive styling */
 @media (max-width: 1024px) {
@@ -264,6 +292,7 @@
     .types {
         grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         margin: 0;
+        padding: 20px;
     }
 
     .works>div>div {
@@ -281,12 +310,17 @@
     }
 
     .slider-text>div {
+        width: 100%;
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        left: 0%;
     }
-
-    #search_city {
-        width: 100%;
+    .slider-text>div > select,input,button {
+        width: 80%;
+        margin: 0px;
     }
 
     .works>div {
@@ -316,5 +350,17 @@
 
     .review>div>div>img {
         width: 50%;
+    }
+
+    #search_city {
+        width: 94%;
+    }
+    
+    #category_select {
+        width: 97%;
+    }
+    
+    #search_city_btn {
+        width: 98%;
     }
 }
