@@ -6,8 +6,17 @@ import './StudioPage.css';
 
 const StudioPage = ({ baseURL }) => {
 
+  const [showFilterBox, setShowFilterBox] = useState(false);
+
+  const toggleFilterBox = () => {
+    setShowFilterBox(!showFilterBox);
+  };
+
+  const navigate = useNavigate();
   useEffect(() => {
     document.title = 'Studios';
+    const token = localStorage.getItem('token');
+    if (!token) navigate('/login');
   }, []);
 
   const categoriesList = ["Weddings", "Babies&Kids", "Travel", "Fashion", "Portfolio", "Commercial", "Birthdays"];
@@ -86,7 +95,6 @@ const StudioPage = ({ baseURL }) => {
       .catch((error) => console.log(error));
   }, [page, location, category, minPrice, maxPrice]);
 
-  const navigate = useNavigate();
   const handleCardClick = (studioID) => {
     navigate(`/studio/${studioID}`);
   };
@@ -94,9 +102,58 @@ const StudioPage = ({ baseURL }) => {
   return (
     <div>
       <Navbar />
+      <div className={`filter-box2`}>
+        {/* Category filter */}
+        <div className="filter-section2">
+          <select
+            name="category"
+            value={category}
+            onChange={handleCategoryChange}
+          >
+            <option value="">Select a category</option>
+            {categoriesList.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Location filter */}
+        <div className="filter-section2">
+          <select
+            name="location"
+            value={location}
+            onChange={handleLocationChange}
+          >
+            <option value="">Select a location</option>
+            {locationsList.map((loc) => (
+              <option key={loc} value={loc}>
+                {loc}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Price filter */}
+        <div className="filter-section2">
+          <select
+            name="price"
+            value={`${minPrice}-${maxPrice}`}
+            onChange={handlePriceChange}
+          >
+            <option value="0-0">Select a price range</option>
+            <option value="0-5000">Below ₹5,000</option>
+            <option value="5000-15000">₹5,000 - ₹15,000</option>
+            <option value="15000-35000">₹15,000 - ₹35,000</option>
+            <option value="35000-50000">₹35,000 - ₹50,000</option>
+            <option value="50000-70000">₹50,000 - ₹70,000</option>
+          </select>
+        </div>
+      </div>
 
       <div id='container'>
-        <div className="filter-box">
+        <div className={`filter-box ${showFilterBox ? 'show' : ''}`}>
           {/* Category filter */}
           <div className="filter-section">
             <h3>Categories</h3>
@@ -211,12 +268,12 @@ const StudioPage = ({ baseURL }) => {
                     <div className="studio-details">
                       <h3>{photographer.profile}</h3>
                       <div className="locations">
-                        {photographer.location.map((loc,ind) => (
+                        {photographer.location.map((loc, ind) => (
                           <span className="loc-bubble" key={ind}>{loc}</span>
                         ))}
                       </div>
                       <div className="categories">
-                        {photographer.expertise.map((category,ind) => (
+                        {photographer.expertise.map((category, ind) => (
                           <span className="category-bubble" key={ind}>{category}</span>
                         ))}
                       </div>

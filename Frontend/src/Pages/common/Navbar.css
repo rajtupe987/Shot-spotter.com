@@ -27,10 +27,15 @@ Link {
     align-items: center;
 }
 
+.navbar__right a {
+  padding: 10px 20px;
+}
+
 .navbar__right a,button {
     margin-right: 10px;
     color: #333;
     text-decoration: none;
+    font-weight: bold;
 }
 
 .navbar__right span {
@@ -58,6 +63,7 @@ Link {
     background-color: transparent;
     padding: 10px 20px;
     cursor: pointer;
+    font-size: 16px;
   }
 
   nav > div:nth-child(2) > div{
@@ -94,3 +100,13 @@ Link {
   }
   
   
+  @media screen and (max-width: 500px) {
+    nav > div:nth-child(1) {
+      height: 80px;
+      display: flex;
+      flex-direction: column;
+    }
+    nav > div:nth-child(2) {
+      display: none;
+    }
+  }
