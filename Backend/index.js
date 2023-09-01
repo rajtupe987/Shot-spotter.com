@@ -15,23 +15,18 @@ const crypto=require("crypto")
 const photographerRouter=require("./routes/photogrpher.route");
 const bookingRouter=require("./routes/bookingroute")
 const {adminRouter}=require("./routes/adminroute")
-const cors=require("cors")
-const app = express();
-app.use(express.json())
-app.use(cors())
+const cors=require("cors");
 
+const app = express();
 
 app.use(express.json());
-
+app.use(cors());
 
 app.use(userRoute);
 app.use("/admin",adminRouter)
 //app.use("/auth", authRoute);
 app.use("/studio", photographerRouter);
 app.use("/bookings", bookingRouter);
-
-
-
 
 /*************************************Razorpay********************************************************* */
 

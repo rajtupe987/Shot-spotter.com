@@ -1,6 +1,7 @@
 const express = require('express');
 const bookingRouter = express.Router();
 const Booking = require('../models/booking.model');
+const Photographer = require("../models/photographers");
 // const userModel=require("../models/usermodel");
 
 const {athorization}=require("../middleware/authorozation")
@@ -19,27 +20,21 @@ const {authenticate}=require("../middleware/authenticate")
 // Create a new booking
 bookingRouter.post('/',authenticate,athorization(["client"]), async (req, res) => {
   try {
-    const {photographerId, customerContact, startTime, endTime } = req.body;
-    // const client = req.body.client;
-    //console.log(req.body)
-    //decode logic
+    let {client, photographer, customerContact, startTime, endTime } = req.body;
     const booking = new Booking({
       customerContact,
-      client:req.body.client,
-      photographer:photographerId,
-      startTime: new Date(startTime),
-      endTime:new Date(endTime)
-
+      client,
+      photographer,
+      startTime: startTime,
+      endTime: endTime,
+      status: "Confirmed"
     });
 
-    
-    // Save the booking to the database
     await booking.save();
-
-    res.status(201).send({ message: 'Booking created successfully' ,booking});
+    res.status(201).send({ msg: 'Booking created successfully' ,booking});
   } catch (error) {
     console.error('Failed to create booking', error);
-    res.status(500).json({ message: 'Failed to create booking' });
+    res.status(500).json({ msg: 'Failed to create booking' });
   }
 });
 
@@ -67,7 +62,7 @@ bookingRouter.patch('/:id',authenticate,athorization(["client","photographer"]),
     if (!booking) {
       return res.status(404).json({ error: 'Booking not found' });
     }
-    res.sendStatus(204);
+    res.status(204).json({msg: "Booking status updated"});
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
   }
@@ -77,14 +72,14 @@ bookingRouter.patch('/:id',authenticate,athorization(["client","photographer"]),
 bookingRouter.get('/client',authenticate, authenticate, async (req, res) => {
   try {
     const client = req.body.client;
-
-    // Find bookings with the provided client ID
-    const bookings = await Booking.find({ client });
-
-    res.json(bookings);
+    const bookings = await Booking.find({ client }).populate({
+      path: 'photographer',
+      select: 'name image profile price',
+    });
+    res.status(200).json({bookings});
   } catch (error) {
     console.error('Failed to retrieve bookings', error);
-    res.status(500).json({ message: 'Failed to retrieve bookings' });
+    res.status(500).json({ msg: error.message });
   }
 });
 

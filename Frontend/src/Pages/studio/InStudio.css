@@ -1,8 +1,37 @@
 #photographer-info {
-    background-image: url("https://aws.amazon.com/getting-started/hands-on/deliver-content-faster/");
+    background-image: url("https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80");
     background-size: cover;
     background-position: center;
+    box-sizing: border-box;
+    padding: 30px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 20px;
+    
 }
+
+#photographer-info > div {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: left;
+}
+#photographer-info > div > h1,h2,h3,p {
+  margin: 0px;
+}
+
+#photographer-info > div > div {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+
 
 #loading {
     position: absolute;
@@ -11,22 +40,35 @@
 }
 
 .booking-form-container {
+  background-image: url("https://images.unsplash.com/photo-1621799754526-a0d52c49fad5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80");
+  background-size: cover;
+  background-position:center;
+    height: 200px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #f2f2f2;
+    gap: 10px;
     text-align: center;
+    box-sizing: border-box;
+    margin-bottom: 0px;
   }
   
   .booking-form {
-    width: 300px;
+    width: 90%;
+    margin-inline: auto;
     padding: 20px;
-    background-color: #f2f2f2;
+    
     border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items:end;
+    gap: 20px;
   }
-  
+
   .form-group {
-    margin-bottom: 15px;
+    width: 30%;
   }
   
   .form-label {
@@ -43,8 +85,8 @@
   }
   
   .book-button {
-    display: block;
-    width: 100%;
+    width: 100px;
+    height: 35px;
     padding: 10px;
     background-color: #007bff;
     color: #fff;
@@ -55,5 +97,40 @@
   
   .book-button:hover {
     background-color: #0056b3;
+  }
+
+  @media screen and (max-width: 900px) {
+    #photographer-info {
+      flex-direction: column;
+    }
+    /* 
+    } */
+  }
+
+  @media screen and (max-width: 450px) {
+    #photographer-info > div {
+      width: 100%;
+    }
+    #photographer-info {
+      padding: 10px;
+    }
+    #photographer-info > img {
+      width: 100%;
+      margin: auto;
+      aspect-ratio: 5/3;
+    }
+    .booking-form {
+      padding: 10px;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items:center;
+      gap: 20px;
+    }
+    .booking-form-container {
+      height: auto;
+      padding: 20px;
+    }
   }
   
