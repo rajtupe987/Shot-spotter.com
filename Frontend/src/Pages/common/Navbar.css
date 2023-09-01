@@ -1,4 +1,4 @@
-nav {
+nav > div:nth-child(1) {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -27,7 +27,7 @@ Link {
     align-items: center;
 }
 
-.navbar__right a {
+.navbar__right a,button {
     margin-right: 10px;
     color: #333;
     text-decoration: none;
@@ -51,6 +51,19 @@ Link {
     height: 3px;
     width: 100%;
     background-color: #fff;
+  }
+
+  nav button {
+    border: none;
+    background-color: transparent;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+
+  nav > div:nth-child(2) > div{
+    padding: 10px 10px;
+    text-align: center;
+    background-color: goldenrod;
   }
 
 

@@ -1,75 +1,106 @@
-// import React, { useState, useEffect } from 'react';
-// import './Bookings.css';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Bookings.css';
+import Navbar from '../common/Navbar';
+import Footer from '../common/Footer';
 
-// const Bookings = () => {
-//   const [bookings, setBookings] = useState([]);
+const Bookings = ({ baseURL }) => {
+    const [bookings, setBookings] = useState([]);
+    const navigate = useNavigate();
+    const [cancel,setCancel] = useState(false);
 
-//   useEffect(() => {
-//     // Fetch the user's bookings from the server
-//     const fetchBookings = async () => {
-//       try {
-//         const response = await fetch('https://your-api-url/bookings');
-//         if (response.ok) {
-//           const data = await response.json();
-//           setBookings(data);
-//         } else {
-//           // Handle error case
-//           console.error('Failed to fetch bookings:', response.status);
-//         }
-//       } catch (error) {
-//         console.error('Error fetching bookings:', error);
-//       }
-//     };
+    useEffect(() => {
+        // Set the document title
+        document.title = 'My Bookings';
+    }, []);
 
-//     fetchBookings();
-//   }, []);
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        fetch(`${baseURL}/bookings/client`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+            }
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setBookings(data.bookings);
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, [cancel]);
 
-//   const handleCancelBooking = async (bookingId) => {
-//     try {
-//       const response = await fetch(`https://your-api-url/bookings/${bookingId}`, {
-//         method: 'PUT',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ status: 'Cancelled' })
-//       });
+    const handleCancelBooking = async (bookingId) => {
+        const token = localStorage.getItem('token');
+        fetch(`${baseURL}/bookings/${bookingId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+            },
+            body: JSON.stringify({ status: 'Cancelled' })
+        })
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text();
+            })
+            .then((data) => {
+                console.log("Booking cancelled");
+                setCancel(!cancel);
+                navigate('/bookings');
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
-//       if (response.ok) {
-//         // Booking cancellation successful
-//         // Refresh the bookings list by fetching data again
-//         fetchBookings();
-//       } else {
-//         // Handle cancellation error case
-//         console.error('Failed to cancel booking:', response.status);
-//       }
-//     } catch (error) {
-//       console.error('Error cancelling booking:', error);
-//     }
-//   };
+    return (
+        <>
+            <Navbar />
+            <h1>My Bookings</h1>
+            <div className="bookings-container">
+                {bookings.length === 0 ? (
+                    <p>No bookings found.</p>
+                ) : (
+                    bookings.map((booking) => (
+                        <div
+                            key={booking._id}
+                            className={`booking-card ${booking.status === 'Cancelled' ? 'cancelled' : booking.status === 'Pending' ? 'pending' : 'confirmed'}`}
+                        >
+                            <div className='studio'>
+                                <img src={booking.photographer.image} alt="" />
+                                <div>
+                                    <p>{booking.photographer.name}</p>
+                                    <p>{booking.photographer.profile}</p>
+                                    <p>From {booking.startTime.split("T")[0]} to {booking.endTime.split("T")[0]}</p>
+                                </div>
+                            </div>
+                            <hr />
+                            <div className='user-details'>
+                                <div>
+                                    <p>Your Contact: <b>{booking.customerContact}</b></p>
+                                    <p>Booking Status: <span className='status'>{booking.status}</span></p>
+                                </div>
+                                {booking.status === 'Confirmed' && (
+                                    <button onClick={() => handleCancelBooking(booking._id)}>Cancel Booking</button>
+                                )}
+                            </div>
+                        </div>
+                    ))
+                )}
+            </div>
+            <Footer />
+        </>
+    );
+};
 
-//   return (
-//     <div className="bookings-container">
-//       <h1>My Bookings</h1>
-//       {bookings.length === 0 ? (
-//         <p>No bookings found.</p>
-//       ) : (
-//         bookings.map((booking) => (
-//           <div
-//             key={booking._id}
-//             className={`booking-card ${booking.status === 'Cancelled' ? 'cancelled' : 'confirmed'}`}
-//           >
-//             <p>Your Contact: {booking.customerContact}</p>
-//             <p>Photographer: {booking.photographer}</p>
-//             <p>Start Date: {booking.startTime}</p>
-//             <p>End Date: {booking.endTime}</p>
-//             <br />
-//             <span>Booking Status: {booking.status}</span>
-//             {booking.status === 'Confirmed' && (
-//               <button onClick={() => handleCancelBooking(booking._id)}>Cancel</button>
-//             )}
-//           </div>
-//         ))
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Bookings;
+export default Bookings;

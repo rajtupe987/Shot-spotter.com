@@ -55,7 +55,6 @@ const InStudio = ({ baseURL }) => {
         },
         body: JSON.stringify({
           customerContact: userData.email,
-          client: userData.userID,
           photographer: studio_id,
           startTime: date1,
           endTime: date2
@@ -64,7 +63,7 @@ const InStudio = ({ baseURL }) => {
 
       if (response.ok) {
         alert('Booking Successful');
-        navigate('/bookings');
+        // navigate('/bookings');
       } else {
         const errorData = await response.json();
         setErrorMessage(errorData.msg);
@@ -84,35 +83,33 @@ const InStudio = ({ baseURL }) => {
       <Navbar />
       {photographer ? (
         <div id="photographer-info" style={{ display: 'flex' }}>
-          <div>
-            {/* Photographer image */}
-            <img src={photographer.image} alt="Photographer" style={{ borderRadius: '50%', width: '150px', height: '150px' }} />
-          </div>
+          <img src={photographer.image} alt="Photographer" style={{ borderRadius: '10px', height: '250px', aspectRatio: '5/3' }} />
           <div>
             {/* Photographer details */}
-            <h1>{photographer.name}</h1>
-            <h3>{photographer.profile}</h3>
+            <h2 style={{textAlign: 'left'}}>{photographer.name}</h2>
+            <h1>{photographer.profile}</h1>
             <div>
               {/* Render location as bubbles */}
               {photographer.location.map((loc, ind) => (
-                <span key={ind} style={{ display: 'inline-block', padding: '5px', margin: '5px', backgroundColor: '#cde', borderRadius: '5px' }}>{loc}</span>
+                <span key={ind} style={{ padding: '10px 20px', backgroundColor: '#ffd', borderRadius: '5px' }}>{loc}</span>
               ))}
             </div>
             <div>
               {/* Render categories as bubbles */}
               {photographer.expertise.map((category, index) => (
-                <span key={index} style={{ display: 'inline-block', padding: '5px', margin: '5px', backgroundColor: '#ccc', borderRadius: '5px' }}>{category}</span>
+                <span key={index} style={{ padding: '10px 20px', backgroundColor: '#ddf', borderRadius: '5px' }}>{category}</span>
               ))}
             </div>
-            <p>Price: ₹{photographer.price}</p>
+            <h3>Price: ₹{photographer.price}</h3>
           </div>
         </div>
       ) : (
-        <p>Loading photographer data...</p>
+        <p id='loading'>Loading photographer data...</p>
       )}
 
 
       <div className="booking-form-container">
+        <h3>Choose your date and make memories with us</h3>
         <form onSubmit={handleBook} className="booking-form">
           <div className="form-group">
             <label htmlFor="startDate" className="form-label">Start Date:</label>

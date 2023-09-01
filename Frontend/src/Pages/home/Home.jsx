@@ -106,9 +106,9 @@ const HomePage = () => {
         <div className="slider-image" style={{ backgroundImage: `url('${sliderImage}')` }}>
           <div className="slider-text">
             <h1 style={{ fontSize: '4rem' }}>ShotSpotter</h1>
-            <h3>
+            {/* <h3>
               Book <span id="category">{category}</span> PhotoShoot Today
-            </h3>
+            </h3> */}
             <div>
               <select name="Category" id="category_select">
                 <option value="">Category</option>
