@@ -1,4 +1,18 @@
-#container{
+.filter-box2 {
+    display: none;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #e0f2e9;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.filter-section2>select {
+    font-size: 16px;
+    padding: 10px;
+}
+
+#container {
     display: flex;
     justify-content: center;
     gap: 10px;
@@ -8,21 +22,21 @@
     margin-top: 20px;
 }
 
-#container > div:nth-child(1){
+#container>div:nth-child(1) {
     width: 200px;
-    border: 1px solid #ccc;
-    padding-inline: 10px;
+    border-radius: 10px;
+    padding: 10px;
 }
 
 .filter-section {
     padding-bottom: 15px;
 }
 
-.filter-section > h3 {
+.filter-section>h3 {
     margin-bottom: 10px;
 }
 
-#container > div:nth-child(2){
+#container>div:nth-child(2) {
     width: 100%;
     padding: 20px;
     /* border: 1px solid #ccc; */
@@ -62,17 +76,20 @@
     gap: 8px;
 }
 
-.studio-details h3,p {
+.studio-details h3,
+p {
     margin: 0px;
 }
 
-.categories,.locations {
+.categories,
+.locations {
     font-size: 12px;
     display: flex;
     gap: 5px;
 }
 
-.category-bubble,.loc-bubble {
+.category-bubble,
+.loc-bubble {
     border-radius: 5px;
     color: white;
     background-color: #57866f;
@@ -96,12 +113,12 @@
     margin: 20px 0px;
 }
 
-#pagination > button {
+#pagination>button {
     border: none;
     border-radius: 20px;
     background-color: #f0fef7;
     color: #57866f;
-    padding: 10px 20px ;
+    padding: 10px 20px;
     font-size: 16px;
     font-weight: bold;
     border: 1px solid #57866f;
@@ -117,10 +134,12 @@
     .card {
         height: auto;
     }
+
     .studio-info {
         flex-direction: column;
         gap: 0px;
     }
+
     .studio-img {
         height: auto;
         aspect-ratio: 5/3;
@@ -129,7 +148,14 @@
 
 @media screen and (max-width: 799px) {
     .photographers-list {
-        grid-template-columns: repeat(1,1fr);
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .filter-box2 {
+        display: flex;
+    }
+    .filter-box {
+        display: none;
     }
 }
 
@@ -137,12 +163,38 @@
     .card {
         height: auto;
     }
+
     .studio-info {
         flex-direction: column;
         gap: 0px;
     }
+
     .studio-img {
         height: auto;
         aspect-ratio: 5/3;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .filter-box2 {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+    .filter-section2>select {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 399px) {
+    #pagination {
+        gap: 5px;
+        margin: 10px 0px;
+    }
+    
+    #pagination>button {
+        padding: 5px 10px;
+        font-size: 12px;
     }
 }
