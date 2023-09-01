@@ -209,15 +209,15 @@ const StudioPage = ({ baseURL }) => {
                   <div className="studio-info">
                     <img src={photographer.image} alt="Photographer" className="studio-img" />
                     <div className="studio-details">
-                      <h3>{photographer.name}</h3>
+                      <h3>{photographer.profile}</h3>
                       <div className="locations">
-                        {photographer.location.map((loc) => (
-                          <span className="loc-bubble">{loc}</span>
+                        {photographer.location.map((loc,ind) => (
+                          <span className="loc-bubble" key={ind}>{loc}</span>
                         ))}
                       </div>
                       <div className="categories">
-                        {photographer.expertise.map((category) => (
-                          <span className="category-bubble">{category}</span>
+                        {photographer.expertise.map((category,ind) => (
+                          <span className="category-bubble" key={ind}>{category}</span>
                         ))}
                       </div>
                       <p className="price-info">Starts from: ₹{photographer.price}</p>

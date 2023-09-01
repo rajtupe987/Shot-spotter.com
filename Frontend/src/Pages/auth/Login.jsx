@@ -30,6 +30,7 @@ const Login = ({baseURL}) => {
         console.log(data);
 
         localStorage.setItem('token', data.token);
+        localStorage.setItem('userData',JSON.stringify(data));
         // setToken(token);
         navigate('/studio');
       } else {
