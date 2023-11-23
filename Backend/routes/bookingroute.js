@@ -5,16 +5,6 @@ const Booking = require('../models/booking.model');
 
 const {athorization}=require("../middleware/authorozation")
 const {authenticate}=require("../middleware/authenticate")
-// Get all bookings
-// bookingRouter.get('/',athorization(["client"]), async (req, res) => {
-//   try {
-//     const bookings = await Booking.find();
-//     res.json(bookings);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// });
-
 
 // Create a new booking
 bookingRouter.post('/',authenticate,athorization(["client"]), async (req, res) => {
@@ -88,30 +78,5 @@ bookingRouter.get('/client',authenticate,athorization(["client"]), async (req, r
   }
 });
 
-
-
-//http://localhost:4002/studio/photographerbookings
-//Retrieve all booking requests for a specific photographer
-// bookingRouter.get('/requests/:status', async (req, res) => {
-//   try {
-//     // Get the logged-in photographer's ID
-//     const photographerId = req.user.id;
-//     // Find all booking requests for the logged-in photographer from the database
-//     const bookings = await Booking.find({ photographer: photographerId, status: req.params.status }).populate('client', 'name email');
-//     res.json({ ok: true, bookings });
-//   } catch (err) {
-//     res.status(500).send({ error: err.message, mssg: 'Server Error', ok: false });
-//   }
-// });
-
-
-
 module.exports = bookingRouter;
 
-///http://localhost:4002/bookings == crete new booking
-
-// http://localhost:4002/bookings/:id = delete booking
-
-//http://localhost:4002/bookings/:id = update booking
-
-//http://localhost:4002/bookings/client == all booking of perticular client
