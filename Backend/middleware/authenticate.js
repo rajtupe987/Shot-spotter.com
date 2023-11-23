@@ -33,11 +33,9 @@ function authenticate(req, res, next) {
           }
 
           req.body.customerName = decoded.name;
-          //req.body.userID = decoded.userID;
           req.body.client = decoded.userID;
-
           req.user = user;
-          console.log(req.user)
+
           next();
         } catch (error) {
           console.log(error);
