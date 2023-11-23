@@ -1,10 +1,7 @@
 const mongoose = require('mongoose');
 
 const bookingSchema = new mongoose.Schema({
-  // customerName: {
-  //   type: String,
-  //   required: true
-  // },
+
   customerContact: {
     type: String,
     required: true
